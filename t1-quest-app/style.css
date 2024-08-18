@@ -1,0 +1,113 @@
+:root {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* colors:
+text:#fbe7ee
+bg:#070707
+primary:#F07896
+secondary:#462C33
+accent:#705A5F
+*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a {
+  color: #ffffff;
+}
+
+body {
+  background-color: #070707;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #f07896;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background-color: #f07896;
+  box-shadow: 1px 1px 25px 2px rgba(255, 255, 255, 0.1), -1px -1px 25px 2px rgba(255, 255, 255, 0.1);
+  text-align: center;
+  position: relative;
+  width: 25rem;
+}
+
+button {
+  border-radius: 0.25rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  width: 8rem;
+  margin-top: 1rem;
+  border: none;
+  background-color: #ffffff;
+}
+
+button:hover {
+  box-shadow: 1px 1px 25px 5px rgba(255, 255, 255, 0.2), -1px -1px 25px 5px rgba(255, 255, 255, 0.2);
+  scale: 1.05;
+}
+
+input {
+  display: flex;
+  color: #070707;
+  border-radius: 0.25rem;
+  border: none;
+  margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
+}
+
+input::placeholder,
+input[type="search"] {
+  text-align: center;
+}
+
+.submitButton {
+  display: block;
+  margin-left: auto;
+}
+
+.slider {
+  width: 100%;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonGroup button {
+  width: 6rem;
+}
+
+.labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: smaller;
+  color: #ffffff;
+}
+
+.addQuestForm {
+  width: 75%;
+}
+
+.addQuestForm input {
+  margin: 0;
+}
