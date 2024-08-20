@@ -15,19 +15,20 @@
   <body>
     <div class="container">
       <h2 style="margin-bottom: 2.5rem">Soru Ekle</h2>
-      <form class="addQuestForm">
+      <form
+        class="addQuestForm"
+        id="addQuestForm"
+      >
         <div>
           <input
             type="text"
-            name="name"
-            id="name"
+            name="qname"
+            id="qname"
             placeholder="Soru Adı"
             required
           />
         </div>
-
-        <p style="margin-bottom: 0rem">Soru Zorluğu</p>
-        <div class="labels"><span>Kolay</span> <span>Zor</span></div>
+        <div class="labels"><span>Kolay</span><span style="font-size: medium">Soru Zorluğu</span> <span>Zor</span></div>
         <input
           type="range"
           min="1"
@@ -35,50 +36,120 @@
           value="2"
           class="slider"
           id="difficulty"
-        /><br/>
+        /><br />
         <input
           type="text"
           name="question"
           id="question"
           placeholder="Soru"
           required
-        /><br/>
-        <input
-          type="text"
-          name="answer"
-          id="answer"
-          placeholder="Doğru Cevap"
-          required
-        /><br/>
-        <input
-          type="text"
-          name="false"
-          id="false1"
-          placeholder="Yanlış Cevap 1"
-          required
-        /><br/>
-        <input
-          type="text"
-          name="false"
-          id="false2"
-          placeholder="Yanlış Cevap 2"
-          required
-        /><br/>
-        <input
-          type="text"
-          name="false"
-          id="false3"
-          placeholder="Yanlış Cevap 3"
-          required
-        /><br/>
+        /><br />
+        <div class="questionGroup">
+          <input
+            type="text"
+            name="answer"
+            id="answer0"
+            placeholder="Cevap 1"
+            required
+          />
+          <div>
+            <input
+              type="radio"
+              name="correct"
+              id="correct0"
+            />
+            <p class="checkboxText">Doğru</p>
+          </div>
+        </div>
+        <br />
+        <div class="questionGroup">
+          <input
+            type="text"
+            name="answer"
+            id="answer1"
+            placeholder="Cevap 2"
+            required
+          />
+          <div>
+            <input
+              type="radio"
+              name="correct"
+              id="correct1"
+            />
+            <p class="checkboxText">Doğru</p>
+          </div>
+        </div>
+        <br />
+        <div
+          class="questionGroup"
+          style="display: none"
+        >
+          <input
+            type="text"
+            name="answer"
+            id="answer2"
+            placeholder="Cevap 3"
+          />
+          <div>
+            <input
+              type="radio"
+              name="correct"
+              id="correct2"
+            />
+            <p class="checkboxText">Doğru</p>
+          </div>
+        </div>
+        <br />
+        <div
+          class="questionGroup"
+          style="display: none"
+        >
+          <input
+            type="text"
+            name="answer"
+            id="answer3"
+            placeholder="Cevap 4"
+          />
+          <div>
+            <input
+              type="radio"
+              name="correct"
+              id="correct3"
+            />
+            <p class="checkboxText">Doğru</p>
+          </div>
+        </div>
+        <br />
+        <button
+          type="button"
+          class="addAnswerButton"
+          id="removeAnswerBtn"
+          onclick="removeAnswer()"
+        >
+          -
+        </button>
+        <button
+          type="button"
+          class="addAnswerButton"
+          id="addAnswerBtn"
+          onclick="addAnswer()"
+        >
+          +
+        </button>
         <div class="buttonGroup">
           <button
+            type="button"
             id="goBackButton"
-            onclick="goBackButton()"
+            onclick="goBack()"
           >
             İptal
           </button>
-          <button>Ekle</button>
+          <button
+            type="submit"
+            id="submitButton"
+          >
+            Ekle
+          </button>
         </div>
       </form>
     </div>

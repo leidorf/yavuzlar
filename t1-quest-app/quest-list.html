@@ -24,7 +24,9 @@
           />
         </div>
         <br />
-        <div></div>
+        <div class="questionGroup">
+          <ul id="question-list"></ul>
+        </div>
         <div class="buttonGroup">
           <a href="./index.html"><button>Ana Sayfa</button></a>
           <a href="./add-quest.html">
@@ -33,5 +35,43 @@
         </div>
       </div>
     </div>
+    <script type="module">
+      import questions from "./questions.js";
+      const questionList = document.getElementById("question-list");
+
+      questions.forEach((question) => {
+        const questionDiv = document.createElement("div");
+
+        questionList.style.padding="0";
+        questionDiv.classList.add("questionDiv");
+
+        const listItem = document.createElement(`li`);
+        const editBtn = document.createElement("button");
+        const deleteBtn = document.createElement("button");
+
+        editBtn.style.textAlign="center";
+
+        editBtn.innerHTML = "Düzenle";
+        deleteBtn.innerHTML = "Sil";
+
+
+        listItem.classList.add("qText");
+        editBtn.classList.add("editBtn");
+        deleteBtn.classList.add("editBtn");
+
+        document.body.append(editBtn);
+        document.body.append(deleteBtn);
+
+        listItem.textContent = question.qname;
+        listItem.id = question.id;
+
+        questionDiv.appendChild(listItem);
+        questionDiv.appendChild(editBtn);
+        questionDiv.appendChild(deleteBtn);
+
+        questionList.appendChild(questionDiv);
+      });
+    </script>
+    <script src="script.js"></script>
   </body>
 </html>
