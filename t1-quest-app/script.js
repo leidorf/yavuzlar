@@ -1,42 +1,51 @@
+//Geri donus butonu
 function goBack() {
   window.location.href = "quest-list.html";
 }
 document.getElementById("goBackButton").addEventListener("click", goBack);
 
+//Local Storage'a sorulari ekleme
 document.addEventListener("DOMContentLoaded", function () {
+  let questions = JSON.parse(localStorage.getItem("questions")) || [];
+
   document.getElementById("addQuestForm").addEventListener("submit", function (event) {
     event.preventDefault();
 
+    const id = questions.length > 0 ? questions[questions.length - 1].id + 1 : 0;
     const qname = document.getElementById("qname").value;
     const difficulty = document.getElementById("difficulty").value;
     const question = document.getElementById("question").value;
-    const answer0 = document.getElementById("answer0").value;
-    const answer1 = document.getElementById("answer1").value;
-    const answer2 = document.getElementById("answer2").value;
-    const answer3 = document.getElementById("answer3").value;
-    const correct0 = document.getElementById("correct0").checked;
-    const correct1 = document.getElementById("correct1").checked;
-    const correct2 = document.getElementById("correct2").checked;
-    const correct3 = document.getElementById("correct3").checked;
+    const answers = [];
+    let correctAnswerValue = null;
 
-    const quest = {
-      qname: qname,
-      difficulty: difficulty,
-      question: question,
-      answer0: answer0,
-      answer1: answer1,
-      answer2: answer2,
-      answer3: answer3,
-      correct0: correct0,
-      correct1: correct1,
-      correct2: correct2,
-      correct3: correct3,
+    for (let i = 0; i < 4; i++) {
+      const answerInput = document.getElementById(`answer${i}`);
+      const isCorrect = document.getElementById(`correct${i}`).checked;
+
+      if (answerInput && answerInput.value) {
+        answers.push(answerInput.value);
+      }
+      if (isCorrect) {
+        correctAnswerValue = answerInput.value;
+      }
+    }
+
+    const questionData = {
+      id,
+      qname,
+      question,
+      answers,
+      correct: correctAnswerValue,
+      difficulty,
     };
 
-    document.getElementById("addQuestForm").reset();
+    questions.push(questionData);
+    localStorage.setItem("questions", JSON.stringify(questions));
+    goBack();
   });
 });
 
+//Sorunun cevap sayisini arttirip azaltma fonksiyonlari
 let answerCount = 2;
 
 function addAnswer() {
@@ -66,3 +75,22 @@ function removeAnswer() {
     document.getElementById("addAnswerBtn").style.display = "inline";
   }
 }
+
+//Sorulari listeleme fonskiyonu
+function listQuests() {}
+
+function deleteQuestion(id) {
+  let questions = JSON.parse(localStorage.getItem("questions")) || [];
+
+  for (let i = 0; i < questions.length; i++) {
+    if (questions[i].id == id) {
+      questions.splice(i, 1);
+      break; 
+    }
+  }
+
+  localStorage.setItem("questions", JSON.stringify(questions));
+  window.location.reload();
+}
+
+document.getElementById("deleteQuestion").addEventListener("click", deleteQuestion);

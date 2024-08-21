@@ -35,29 +35,29 @@
         </div>
       </div>
     </div>
-    <script type="module">
-      import questions from "./questions.js";
+    <script>
+      const questions = JSON.parse(localStorage.getItem("questions")) || [];
+
       const questionList = document.getElementById("question-list");
 
       questions.forEach((question) => {
         const questionDiv = document.createElement("div");
 
-        questionList.style.padding="0";
+        questionList.style.padding = "0";
         questionDiv.classList.add("questionDiv");
 
         const listItem = document.createElement(`li`);
         const editBtn = document.createElement("button");
         const deleteBtn = document.createElement("button");
 
-        editBtn.style.textAlign="center";
-
-        editBtn.innerHTML = "Düzenle";
-        deleteBtn.innerHTML = "Sil";
-
+        editBtn.innerText = "Düzenle";
+        deleteBtn.innerText = "Sil";
 
         listItem.classList.add("qText");
         editBtn.classList.add("editBtn");
         deleteBtn.classList.add("editBtn");
+        
+        deleteBtn.addEventListener("click", () => deleteQuestion(question.id));
 
         document.body.append(editBtn);
         document.body.append(deleteBtn);
