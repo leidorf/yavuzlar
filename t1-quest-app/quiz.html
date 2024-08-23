@@ -10,17 +10,20 @@
       rel="stylesheet"
       href="style.css"
     />
-    <title>Yavuzlar Quest App</title>
+    <title>Quiz</title>
   </head>
   <body>
     <div class="container">
-      <div>
-        <h2>Yavuzlar Quest App</h2>
-      </div>
-      <a href="quiz.html"><button id="startBtn">Başlat</button></a>
-      <a href="quest-list.html">
-        <button>Soruları Düzenle</button>
-      </a>
+      <div id="questionContainer"></div>
+      <button
+        type="button"
+        id="nextButton"
+        style="display: none"
+      >
+        Sonraki
+      </button>
     </div>
+
+    <script src="quiz.js"></script>
   </body>
 </html>

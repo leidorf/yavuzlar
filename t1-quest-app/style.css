@@ -6,14 +6,10 @@
 }
 
 /* colors:
-text:#fbe7ee
+text:#ffffff
 bg:#070707
 primary:#F07896
-secondary:#462C33
-accent:#705A5F
-#efabc0
 #f2a8c1
-#373330
 */
 
 h1,
@@ -45,7 +41,7 @@ body {
   padding: 1.5rem;
   border-radius: 1rem;
   background-color: #f2a8c1;
-  box-shadow: 1px 1px 25px 2px rgba(255, 255, 255, 0.215), -1px -1px 25px 2px rgba(255, 255, 255, 0.215);
+  box-shadow: 1px 1px 25px 5px rgba(255, 255, 255, 0.215), -1px -1px 25px 5px rgba(255, 255, 255, 0.215);
   text-align: center;
   position: relative;
   width: 25rem;
@@ -62,7 +58,7 @@ button {
 }
 
 button:hover {
-  box-shadow: 1px 1px 25px 5px #462c3333, -1px -1px 25px 5px #462c3333;
+  box-shadow: 1px 1px 25px 10px #f0789666, -1px -1px 25px 10px #f0789666;
 }
 
 input {
@@ -106,11 +102,13 @@ input::placeholder {
   margin-top: 1rem;
 }
 
-.addQuestForm {
+.addQuestForm,
+.editQuestForm {
   width: 80%;
 }
 
-.addQuestForm input {
+.addQuestForm input,
+.editQuestForm input {
   margin: 0;
 }
 
@@ -124,12 +122,11 @@ input::placeholder {
 }
 
 .checkboxText {
-  text-wrap: nowrap;
   margin: 0;
   font-size: small;
 }
 
-.addAnswerButton {
+.answerButton {
   margin-bottom: 1.5rem;
   padding: 0.25rem;
   font-weight: 600;
@@ -144,10 +141,10 @@ input::placeholder {
   border: solid 2px #ffffff;
   border-radius: 0.5rem;
   padding: 0.5rem;
-  box-shadow: 1px 3px 8px #151515;
 }
 
 .qText {
+  font-weight: 600;
   list-style-type: none;
   margin-right: auto;
   color: #ffffff;
@@ -155,7 +152,14 @@ input::placeholder {
 
 .editBtn {
   margin: 0;
-  display: flex;
   width: 4rem;
   margin-left: 1rem;
+}
+
+.quizBtn {
+  text-align: center;
+  margin: 1rem;
+}
+.is-hidden {
+  display: none;
 }

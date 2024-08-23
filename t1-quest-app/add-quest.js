@@ -1,9 +1,3 @@
-//Geri donus butonu
-function goBack() {
-  window.location.href = "quest-list.html";
-}
-document.getElementById("goBackButton").addEventListener("click", goBack);
-
 //Local Storage'a sorulari ekleme
 document.addEventListener("DOMContentLoaded", function () {
   let questions = JSON.parse(localStorage.getItem("questions")) || [];
@@ -45,6 +39,12 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+//Geri donus butonu
+function goBack() {
+  window.location.href = "quest-list.html";
+}
+document.getElementById("goBackButton").addEventListener("click", goBack);
+
 //Sorunun cevap sayisini arttirip azaltma fonksiyonlari
 let answerCount = 2;
 
@@ -75,22 +75,3 @@ function removeAnswer() {
     document.getElementById("addAnswerBtn").style.display = "inline";
   }
 }
-
-//Sorulari listeleme fonskiyonu
-function listQuests() {}
-
-function deleteQuestion(id) {
-  let questions = JSON.parse(localStorage.getItem("questions")) || [];
-
-  for (let i = 0; i < questions.length; i++) {
-    if (questions[i].id == id) {
-      questions.splice(i, 1);
-      break; 
-    }
-  }
-
-  localStorage.setItem("questions", JSON.stringify(questions));
-  window.location.reload();
-}
-
-document.getElementById("deleteQuestion").addEventListener("click", deleteQuestion);
