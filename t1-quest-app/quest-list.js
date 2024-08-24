@@ -3,9 +3,9 @@ let questions = [];
 
 document.addEventListener("DOMContentLoaded", function () {
   questions = JSON.parse(localStorage.getItem("questions")) || [];
-  if (questions.length == 0) {
-    document.getElementById("qsearch").placeholder = "Arama Yapmadan Önce Soru Ekleyin";
-    document.getElementById("qsearch").disabled = true;
+  if (questions.length < 1) {
+    document.getElementById("searchbox").placeholder = "Arama Yapmadan Önce Soru Ekleyin";
+    document.getElementById("searchbox").disabled = true;
   }
 
   const questionList = document.getElementById("question-list");
@@ -79,9 +79,9 @@ function liveSearch() {
 //Soru arama gecikmesi
 let typingTimer;
 let typeInterval = 500;
-let searchInput = document.getElementById('searchbox');
+let searchInput = document.getElementById("searchbox");
 
-searchInput.addEventListener('keyup', () => {
+searchInput.addEventListener("keyup", () => {
   clearTimeout(typingTimer);
   typingTimer = setTimeout(liveSearch, typeInterval);
 });

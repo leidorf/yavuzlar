@@ -12,10 +12,42 @@ document.addEventListener("DOMContentLoaded", function () {
   function showQuestion(index) {
     if (index < questions.length) {
       const currentQuestion = questions[currentIndex];
-      questionContainer.innerHTML = "";
+      questionContainer.innerHTML = ``;
+
+      const infoDiv = document.getElementById("infoDiv");
 
       let qname = document.createElement("h3");
-      qname.innerHTML = `Zorluk: ${currentQuestion.difficulty}/3<br/>${currentQuestion.qname}`;
+      let difficulty = document.createElement("h3");
+      let progress = document.createElement("h3");
+      let rule = document.createElement("hr");
+
+      rule.classList.add("rule");
+
+      progress.innerText = `${index + 1}/${questions.length}`;
+
+      switch (currentQuestion.difficulty) {
+        case "1":
+          difficulty.style.color = "#45aa45";
+          difficulty.innerText = "Kolay";
+          break;
+        case "2":
+          difficulty.style.color = "#f0e130";
+          difficulty.innerText = "Orta";
+          break;
+        case "3":
+          difficulty.style.color = "#bb4545";
+          difficulty.innerText = "Zor";
+          break;
+        default:
+          break;
+      }
+      qname.innerHTML = `${currentQuestion.qname}`;
+      qname.style.marginBottom = "3rem";
+
+      infoDiv.appendChild(difficulty);
+      infoDiv.appendChild(progress);
+      questionContainer.appendChild(infoDiv);
+      questionContainer.appendChild(rule);
       questionContainer.appendChild(qname);
 
       currentQuestion.answers.sort(() => Math.random() - 0.5);

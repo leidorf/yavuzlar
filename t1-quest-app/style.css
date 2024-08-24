@@ -163,3 +163,19 @@ input::placeholder {
 .is-hidden {
   display: none;
 }
+
+.infoDiv{
+  display: flex;
+  justify-content: space-between;
+  margin: -0.5rem 1rem 0rem 1rem;
+}
+
+.rule{
+  border-width: 0px;
+  height: 1px;
+  color: white;
+  background-color: white;
+  width: auto;
+  margin: 0;
+  margin-bottom: 3rem;
+}
