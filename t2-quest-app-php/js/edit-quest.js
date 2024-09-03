@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //Geri donus butonu
 function goBack() {
-  window.location.href = "quest-list.html";
+  window.location.href = "quest-list.php";
 }
 document.getElementById("goBackButton").addEventListener("click", goBack);
 

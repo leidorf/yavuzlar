@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
       questionContainer.innerHTML = `<h2>Tebrikler!<br/>Sonucunuz:</h2><p style="font-weight:600;">${correctCounter}/${questions.length} Doğru<br/><br/>${score} Puan</p>`;
 
       let homeBtn = document.createElement("a");
-      homeBtn.href = "index.html";
+      homeBtn.href = "index.php";
       homeBtn.innerHTML = `<button type="button">Ana Sayfa</button>`;
 
       questionContainer.appendChild(homeBtn);

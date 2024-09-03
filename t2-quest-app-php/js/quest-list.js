@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     deleteBtn.classList.add("editBtn");
 
     editBtn.addEventListener("click", function () {
-      window.location.href = `edit-quest.html?id=${question.id}`;
+      window.location.href = `edit-quest.php?id=${question.id}`;
     });
 
     deleteBtn.addEventListener("click", () => deleteQuestion(question.id));
