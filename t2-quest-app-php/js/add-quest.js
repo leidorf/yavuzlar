@@ -1,5 +1,5 @@
 //Local Storage'a sorulari ekleme
-document.addEventListener("DOMContentLoaded", function () {
+/* document.addEventListener("DOMContentLoaded", function () {
   let questions = JSON.parse(localStorage.getItem("questions")) || [];
 
   document.getElementById("addQuestForm").addEventListener("submit", function (event) {
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("questions", JSON.stringify(questions));
     goBack();
   });
-});
+}); */
 
 //Geri donus butonu
 function goBack() {

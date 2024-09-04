@@ -18,7 +18,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
 <body>
   <div class="container">
     <h2>Quest App</h2>
-    <form action="loginQuery.php" method="post">
+    <form action="login-query.php" method="post">
       <input class="loginInput" type="text" name="username" placeholder="Kullanıcı Adı" style="margin: 1rem 0px 1rem 0px;" required>
       <input class="loginInput" type="password" name="password" placeholder="Şifre" required>
       <button type="submit">Giriş Yap</button>

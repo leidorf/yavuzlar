@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
-  header("Location: login.php?message=You are not logged in! //index.php");
+  header("Location: login.php?message=You are not logged in!");
 } else {
 ?>
   <!DOCTYPE html>

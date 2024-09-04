@@ -18,6 +18,9 @@
       <form
         class="addQuestForm"
         id="addQuestForm"
+        action="add-quest-query.php"
+        method="post"
+        enctype="multipart/form-data"
       >
         <div>
           <input
