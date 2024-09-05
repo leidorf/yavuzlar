@@ -39,6 +39,7 @@
           value="2"
           class="slider"
           id="difficulty"
+          name="difficulty"
         /><br />
         <input
           type="text"
@@ -50,7 +51,7 @@
         <div class="questionGroup">
           <input
             type="text"
-            name="answer"
+            name="answers[]"
             id="answer0"
             placeholder="Cevap 1"
             required
@@ -60,6 +61,8 @@
               type="radio"
               name="correct"
               id="correct0"
+              value="0"
+              required
             />
             <p class="checkboxText">Doğru</p>
           </div>
@@ -68,7 +71,7 @@
         <div class="questionGroup">
           <input
             type="text"
-            name="answer"
+            name="answers[]"
             id="answer1"
             placeholder="Cevap 2"
             required
@@ -78,6 +81,8 @@
               type="radio"
               name="correct"
               id="correct1"
+              value="1"
+              required
             />
             <p class="checkboxText">Doğru</p>
           </div>
@@ -89,7 +94,7 @@
         >
           <input
             type="text"
-            name="answer"
+            name="answers[]"
             id="answer2"
             placeholder="Cevap 3"
           />
@@ -98,6 +103,8 @@
               type="radio"
               name="correct"
               id="correct2"
+              value="2"
+              required
             />
             <p class="checkboxText">Doğru</p>
           </div>
@@ -109,15 +116,17 @@
         >
           <input
             type="text"
-            name="answer"
+            name="answers[]"
             id="answer3"
             placeholder="Cevap 4"
-          />
-          <div>
-            <input
+            />
+            <div>
+              <input
               type="radio"
               name="correct"
               id="correct3"
+              value="3"
+              required
             />
             <p class="checkboxText">Doğru</p>
           </div>

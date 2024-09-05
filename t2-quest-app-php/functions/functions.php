@@ -45,4 +45,11 @@ function DeleteQuestion($id){
     $statement=$pdo->prepare($query);
     $statement->execute();
 }
+
+function EditQuestion($id, $qname, $difficulty, $question, $answers, $correct){
+    include "db.php";
+    $query = "UPDATE questions SET qname='$qname',difficulty='$difficulty',question='$question',answers='$answers',correct='$correct' WHERE id='$id'";
+    $statement = $pdo->prepare($query);
+    $statement->execute();
+}
 ?>

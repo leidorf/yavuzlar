@@ -8,7 +8,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
     header("Location: index.php?message=You are not admin!");
     exit();
 }
-
+$questionId = $_GET['id'];
 $clearedAnswers = array_filter($_POST['answers'], fn($item) => !empty($item));
 if (isset($_POST['qname']) && isset($_POST['difficulty']) && isset($_POST['question']) && count($clearedAnswers)>=2 && count($clearedAnswers)<=4 && isset($_POST['correct'])) {
     $qname = $_POST['qname'];
@@ -16,11 +16,12 @@ if (isset($_POST['qname']) && isset($_POST['difficulty']) && isset($_POST['quest
     $question = $_POST['question'];
     $correctIndex = $_POST['correct'];
     $correct = $clearedAnswers[$correctIndex];
-    AddQuestion($qname,$difficulty,$question,$clearedAnswers,$correct);
+    EditQuestion($questionId,$qname,$difficulty,$question,$clearedAnswers,$correct);
     header("Location: quest-list.php");
     exit();
 } else {
-    header("Location: quest-list.php?message=Eksik bilgi girdiniz.");
+    print_r($questionId);
+    print_r($_POST);
     exit();
 }
 ?>

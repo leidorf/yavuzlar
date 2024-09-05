@@ -130,17 +130,16 @@ input::placeholder {
   margin-bottom: 1.5rem;
   padding: 0.25rem;
   font-weight: 600;
-  margin-top: -1rem;
 }
 
 .questionDiv {
   display: flex;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   width: 19rem;
   border: solid 2px #ffffff;
   border-radius: 0.5rem;
-  padding: 0.5rem;
+  padding: 0 0.5rem 0 0.5rem;
 }
 
 .qText {
@@ -152,8 +151,9 @@ input::placeholder {
 
 .editBtn {
   margin: 0;
-  width: 4rem;
-  margin-left: 1rem;
+  width: auto;
+  height: auto;
+  margin-left: 0.5rem;
 }
 
 .quizBtn {

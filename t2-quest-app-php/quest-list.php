@@ -1,23 +1,30 @@
 <?php
 session_start();
 
-if(isset($_SESSION['id']) && isset($_SESSION['username'])){
-
+if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
+  header('Location: ./login.php?message=You are not logged in!');
+  exit();
+} else if (!$_SESSION['isAdmin']) {
+  header("Location: index.php?message=You are not admin!");
+  exit();
+} else {
+  include "functions/functions.php";
+  $questions = GetQuestions();
 ?>
-<!DOCTYPE html>
-<html lang="en">
+  <!DOCTYPE html>
+  <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+      content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
-      href="style.css"
-    />
+      href="style.css" />
     <title>Quest List</title>
   </head>
+
   <body>
     <div class="container">
       <div class="addQuestForm">
@@ -25,13 +32,23 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
           <input
             type="search"
             id="searchbox"
-            placeholder="Soru Ara"
-          />
+            placeholder="Soru Ara" />
         </div>
         <br />
-        <div class="questionGroup">
-          <ul id="question-list"></ul>
-        </div>
+        <?php
+        foreach ($questions as $question): ?>
+          <div class="questionGroup">
+            <div class="questionDiv">
+              <p class="qText"><?php echo $question['qname'] ?></p>
+              <a  href="edit-quest.php?id=<?php echo $question['id']; ?>">
+                <button type="button" class="editBtn">⚙️</button>
+              </a>
+              <a href="delete-quest.php?id=<?php echo $question['id']; ?>">
+                <button type="button" class="editBtn">❌</button>
+              </a>
+            </div>
+          </div>
+        <?php endforeach ?>
         <div class="buttonGroup">
           <a href="./index.php"><button>Ana Sayfa</button></a>
           <a href="./add-quest.php">
@@ -41,14 +58,12 @@ if(isset($_SESSION['id']) && isset($_SESSION['username'])){
       </div>
     </div>
     <script>
-    
+
     </script>
     <script src="./js/quest-list.js"></script>
   </body>
-</html>
+
+  </html>
 <?php
-}else{
-  header('Location: ./login.php?message=You are not logged in!');
-  exit;
 }
 ?>
