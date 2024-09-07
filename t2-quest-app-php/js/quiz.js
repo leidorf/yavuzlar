@@ -1,45 +1,51 @@
 let currentQuestionIndex = 0;
-let questionsCount = document.querySelectorAll('.questionContainer').length;
+let questionsCount = document.querySelectorAll(".questionContainer").length;
 
-function checkAnswer(questionId, selectedAnswer, correctAnswer, questionIndex) {
-    let buttons = document.querySelectorAll(`#question${questionIndex} .answerButton`);
-    
-    buttons.forEach(button => button.disabled = true);
+function checkAnswer(questionId, selectedAnswer, correctAnswer, questionIndex, qname) {
+  let buttons = document.querySelectorAll(`#question${questionIndex} .answerButton`);
 
-    if (selectedAnswer === correctAnswer) {
-      buttons[selectedAnswer].style.border = "solid 2px #45aa45";
-      buttons[selectedAnswer].style.boxShadow = "1px 1px 15px 5px #45aa45";
-        updateScore(questionId, true);
-    } else {
-      buttons[selectedAnswer].style.border = "solid 2px #ee3545";
-      buttons[selectedAnswer].style.boxShadow = "1px 1px 15px 5px #ee3545";
-        updateScore(questionId, false);
-    }
+  buttons.forEach((button) => (button.disabled = true));
 
-    document.getElementById('nextButton').style.display = 'block';
+  if (selectedAnswer === correctAnswer) {
+    buttons[selectedAnswer].style.border = "solid 2px #45aa45";
+    buttons[selectedAnswer].style.boxShadow = "1px 1px 15px 5px #45aa45";
+  } else {
+    buttons[selectedAnswer].style.border = "solid 2px #ee3545";
+    buttons[selectedAnswer].style.boxShadow = "1px 1px 15px 5px #ee3545";
+  }
+  setTimeout(() => {
+    updateScore(questionId, selectedAnswer === correctAnswer, qname);
+  }, 1250);
 }
 
-function nextQuestion() {
-    document.getElementById(`question${currentQuestionIndex}`).style.display = 'none';
-    currentQuestionIndex++;
+function updateScore(questionId, isCorrect, qname) {
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = "update-score.php";
 
-    if (currentQuestionIndex < questionsCount) {
-        document.getElementById(`question${currentQuestionIndex}`).style.display = 'block';
-        document.getElementById('nextButton').style.display = 'none';
-    } else {
-        window.location.href = 'index.php';
-    }
+  const questionInput = document.createElement("input");
+  questionInput.type = "hidden";
+  questionInput.name = "questionId";
+  questionInput.value = questionId;
+  form.appendChild(questionInput);
+
+  const correctInput = document.createElement("input");
+  correctInput.type = "hidden";
+  correctInput.name = "isCorrect";
+  correctInput.value = isCorrect ? 1 : 0;
+  form.appendChild(correctInput);
+
+  const qnameInput = document.createElement("input");
+  qnameInput.type = "hidden";
+  qnameInput.name = "qname";
+  qnameInput.value = qname;
+  form.appendChild(qnameInput);
+
+  document.body.appendChild(form);
+  form.submit();
 }
 
-function updateScore(questionId, isCorrect) {
-    fetch('update-score.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            questionId: questionId,
-            isCorrect: isCorrect
-        })
-    });
+function goToHomePage() {
+  window.location.href = "index.php";
 }
+document.getElementById("homePageButton").addEventListener("click", goToHomePage);

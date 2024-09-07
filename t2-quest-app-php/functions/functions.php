@@ -30,6 +30,7 @@ function Login($username, $password)
             $_SESSION['id'] = $result['id'];
             $_SESSION['username'] = $result['username'];
             $_SESSION['isAdmin'] = $result['isAdmin'];
+            $_SESSION['score'] = $result['score'];
             return true;
         } else {
             return false;
@@ -99,5 +100,23 @@ function GetQuestionsForUser($userId) {
     }
 
     $result = $statement->fetchAll();
+    return $result;
+}
+
+function GetLogs($userId){
+    include "db.php";
+    $query = "SELECT * FROM submissions WHERE userId = ?";
+    $statement = $pdo->prepare($query);
+    $statement->execute([$userId]);
+    $result=$statement->fetchAll();
+    return $result;
+}
+
+function GetUsers(){
+    include "db.php";
+    $query = "SELECT * FROM users";
+    $statement = $pdo->prepare($query);
+    $statement->execute();
+    $result=$statement->fetchAll();
     return $result;
 }

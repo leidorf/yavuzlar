@@ -165,7 +165,6 @@ input::placeholder {
 
 .infoDiv{
   display: flex;
-  width: 80%;
   justify-content: space-between;
   margin: -0.5rem 1rem 0rem 1rem;
 }
@@ -195,5 +194,23 @@ input::placeholder {
 }
 
 .questionContainer{
-  width: 80% ;
+  width: 80%;
+}
+
+.submissionDiv{
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  width: 19rem;
+  border: solid 2px #ffffff;
+  border-radius: 0.5rem;
+  padding: 0 0.5rem 0 0.5rem;
+  justify-content: space-between;
+}
+
+.boardDiv{
+  display: flex;
+  align-items: center;
+  width: 19rem;
+  justify-content: space-between;
 }
