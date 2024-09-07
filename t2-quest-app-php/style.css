@@ -112,7 +112,7 @@ input::placeholder {
   margin: 0;
 }
 
-.questionGroup {
+.questionGroup{
   display: flex;
 }
 
@@ -127,7 +127,6 @@ input::placeholder {
 }
 
 .answerButton {
-  margin-bottom: 1.5rem;
   padding: 0.25rem;
   font-weight: 600;
 }
@@ -166,8 +165,13 @@ input::placeholder {
 
 .infoDiv{
   display: flex;
+  width: 80%;
   justify-content: space-between;
   margin: -0.5rem 1rem 0rem 1rem;
+}
+
+.infoText{
+  display: flex;
 }
 
 .rule{
@@ -178,4 +182,18 @@ input::placeholder {
   width: auto;
   margin: 0;
   margin-bottom: 3rem;
+}
+
+#difficultyText1{
+  color:#45aa45 ;
+}
+#difficultyText2{
+  color: #f0e130;
+}
+#difficultyText3{
+  color: #bb4545;
+}
+
+.questionContainer{
+  width: 80% ;
 }

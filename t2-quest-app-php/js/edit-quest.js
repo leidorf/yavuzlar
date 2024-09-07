@@ -1,5 +1,4 @@
-let answerCount;
-
+let answerCount = document.querySelectorAll('.questionGroup').length;
 //Geri donus butonu
 function goBack() {
   window.location.href = "quest-list.php";

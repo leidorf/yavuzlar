@@ -32,6 +32,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
           <input
             type="search"
             id="searchbox"
+            onchange="liveSearch()"
             placeholder="Soru Ara" />
         </div>
         <br />
@@ -40,7 +41,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
           <div class="questionGroup">
             <div class="questionDiv">
               <p class="qText"><?php echo $question['qname'] ?></p>
-              <a  href="edit-quest.php?id=<?php echo $question['id']; ?>">
+              <a href="edit-quest.php?id=<?php echo $question['id']; ?>">
                 <button type="button" class="editBtn">⚙️</button>
               </a>
               <a href="delete-quest.php?id=<?php echo $question['id']; ?>">

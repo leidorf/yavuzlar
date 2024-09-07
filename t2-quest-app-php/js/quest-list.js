@@ -3,7 +3,7 @@ function liveSearch() {
   let listItem = document.querySelectorAll(".questionDiv");
   let search_query = document.getElementById("searchbox").value;
 
-  for (var i = 0; i < questions.length; i++) {
+  for (var i = 0; i < listItem.length; i++) {
     if (listItem[i].innerText.toLowerCase().includes(search_query.toLowerCase())) {
       listItem[i].classList.remove("is-hidden");
     } else {

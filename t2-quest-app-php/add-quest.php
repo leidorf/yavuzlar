@@ -1,17 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+session_start();
+if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
+  header("Location: login.php?message=You are not logged in!");
+  die();
+} else if (!$_SESSION['isAdmin']) {
+  header("Location: index.php?message=You are not admin!");
+  exit();
+} else { ?>
+  <!DOCTYPE html>
+  <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+      content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
-      href="style.css"
-    />
+      href="style.css" />
     <title>Add Quest</title>
   </head>
+
   <body>
     <div class="container">
       <h2 style="margin-bottom: 2.5rem">Soru Ekle</h2>
@@ -20,16 +29,14 @@
         id="addQuestForm"
         action="add-quest-query.php"
         method="post"
-        enctype="multipart/form-data"
-      >
+        enctype="multipart/form-data">
         <div>
           <input
             type="text"
             name="qname"
             id="qname"
             placeholder="Soru Adı"
-            required
-          />
+            required />
         </div>
         <div class="labels"><span>Kolay</span><span style="font-size: medium">Soru Zorluğu</span> <span>Zor</span></div>
         <input
@@ -39,31 +46,27 @@
           value="2"
           class="slider"
           id="difficulty"
-          name="difficulty"
-        /><br />
+          name="difficulty" /><br />
         <input
           type="text"
           name="question"
           id="question"
           placeholder="Soru"
-          required
-        /><br />
+          required /><br />
         <div class="questionGroup">
           <input
             type="text"
             name="answers[]"
             id="answer0"
             placeholder="Cevap 1"
-            required
-          />
+            required />
           <div>
             <input
               type="radio"
               name="correct"
               id="correct0"
               value="0"
-              required
-            />
+              required />
             <p class="checkboxText">Doğru</p>
           </div>
         </div>
@@ -74,60 +77,52 @@
             name="answers[]"
             id="answer1"
             placeholder="Cevap 2"
-            required
-          />
+            required />
           <div>
             <input
               type="radio"
               name="correct"
               id="correct1"
               value="1"
-              required
-            />
+              required />
             <p class="checkboxText">Doğru</p>
           </div>
         </div>
         <br />
         <div
           class="questionGroup"
-          style="display: none"
-        >
+          style="display: none">
           <input
             type="text"
             name="answers[]"
             id="answer2"
-            placeholder="Cevap 3"
-          />
+            placeholder="Cevap 3" />
           <div>
             <input
               type="radio"
               name="correct"
               id="correct2"
               value="2"
-              required
-            />
+              required />
             <p class="checkboxText">Doğru</p>
           </div>
         </div>
         <br />
         <div
           class="questionGroup"
-          style="display: none"
-        >
+          style="display: none">
           <input
             type="text"
             name="answers[]"
             id="answer3"
-            placeholder="Cevap 4"
-            />
-            <div>
-              <input
+            placeholder="Cevap 4" />
+          <div>
+            <input
               type="radio"
               name="correct"
               id="correct3"
               value="3"
-              required
-            />
+              required />
             <p class="checkboxText">Doğru</p>
           </div>
         </div>
@@ -135,30 +130,26 @@
           type="button"
           class="answerButton"
           id="removeAnswerBtn"
-          onclick="removeAnswer()"
-        >
+          onclick="removeAnswer()">
           -
         </button>
         <button
           type="button"
           class="answerButton"
           id="addAnswerBtn"
-          onclick="addAnswer()"
-        >
+          onclick="addAnswer()">
           +
         </button>
         <div class="buttonGroup">
           <button
             type="button"
             id="goBackButton"
-            onclick="goBack()"
-          >
+            onclick="goBack()">
             İptal
           </button>
           <button
             type="submit"
-            id="submitButton"
-          >
+            id="submitButton">
             Ekle
           </button>
         </div>
@@ -166,4 +157,6 @@
     </div>
     <script src="./js/add-quest.js"></script>
   </body>
-</html>
+
+  </html>
+<?php } ?>
