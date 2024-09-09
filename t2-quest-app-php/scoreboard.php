@@ -28,7 +28,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
                 </div>
                 <?php foreach ($datas as $i => $data) { ?>
                     <div class="submissionDiv">
-                        <p><?php echo $data['username']; ?></p>
+                        <p <?php if($data['id']==$_SESSION['id']){echo "class='boardUser'";} ?> ><?php echo $data['username']; ?></p>
                         <p><?php echo $data['score']; ?></p>
                     </div>
             <?php }

@@ -179,8 +179,7 @@ input::placeholder {
   color: white;
   background-color: white;
   width: auto;
-  margin: 0;
-  margin-bottom: 3rem;
+  margin: 1rem 0 -0.5rem 0;
 }
 
 #difficultyText1{
@@ -213,4 +212,10 @@ input::placeholder {
   align-items: center;
   width: 19rem;
   justify-content: space-between;
+}
+
+.boardUser{
+  text-decoration:underline;
+  font-weight:700;
+  font-style: italic;
 }

@@ -22,8 +22,14 @@ if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
       <input class="loginInput" type="text" name="username" placeholder="Kullanıcı Adı" style="margin: 1rem 0px 1rem 0px;" required>
       <input class="loginInput" type="password" name="password" placeholder="Şifre" required>
       <button type="submit">Giriş Yap</button>
+      <hr class="rule" />
     </form>
+      <button type="button" onclick="goToSignIn()">Kayıt Ol</button>
   </div>
 </body>
-
+<script>
+function goToSignIn(){
+  window.location.href="signin.php";
+}
+</script>
 </html>

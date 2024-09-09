@@ -35,6 +35,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
         } ?>
         <a href="scoreboard.php"><button>Scoreboard</button></a>
         <a href="submissions.php"><button>Çözülenler</button></a>
+        <hr class="rule"/>
         <form action="logout.php" method="post">
           <button class="logout" id="logoutButton">Çıkış Yap</button>
         </form>

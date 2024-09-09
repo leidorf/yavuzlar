@@ -1,15 +1,16 @@
 <?php
 
-function htmlclean($text){
-    $text = preg_replace("'<script[^>]*>.*?</script>'si", '', $text );
-    $text = preg_replace('/<a\s+.*?href="([^"]+)"[^>]*>([^<]+)<\/a>/is', '\2 (\1)', $text );
-    $text = preg_replace('/<!--.+?-->/', '', $text ); 
-    $text = preg_replace('/{.+?}/', '', $text ); 
-    $text = preg_replace('/&nbsp;/', ' ', $text );
-    $text = preg_replace('/&amp;/', ' ', $text ); 
-    $text = preg_replace('/&quot;/', ' ', $text );
+function htmlclean($text)
+{
+    $text = preg_replace("'<script[^>]*>.*?</script>'si", '', $text);
+    $text = preg_replace('/<a\s+.*?href="([^"]+)"[^>]*>([^<]+)<\/a>/is', '\2 (\1)', $text);
+    $text = preg_replace('/<!--.+?-->/', '', $text);
+    $text = preg_replace('/{.+?}/', '', $text);
+    $text = preg_replace('/&nbsp;/', ' ', $text);
+    $text = preg_replace('/&amp;/', ' ', $text);
+    $text = preg_replace('/&quot;/', ' ', $text);
     $text = strip_tags($text);
-    $text = htmlspecialchars($text); 
+    $text = htmlspecialchars($text);
 
     return $text;
 }
@@ -38,26 +39,38 @@ function Login($username, $password)
     }
 }
 
-function GetQuestions(){
+function SignIn($username, $password) {
+    if ($_SERVER["REQUEST_METHOD"]=="POST"){
+        include "db.php";
+        $query = "INSERT INTO users(username,password) VALUES('$username','$password')";
+        $statement = $pdo->prepare($query);
+        $statement->execute();
+    }
+}
+
+function GetQuestions()
+{
     include "db.php";
-    $query="SELECT * FROM questions";
+    $query = "SELECT * FROM questions";
     $statement = $pdo->prepare($query);
     $statement->execute();
-    $result=$statement->fetchAll();
+    $result = $statement->fetchAll();
     return $result;
 }
 
-function GetQuestionById($id){
+function GetQuestionById($id)
+{
     include "db.php";
     $query = "SELECT * FROM questions WHERE id=$id";
     $statement = $pdo->prepare($query);
     $statement->execute();
     $question = $statement->fetch(PDO::FETCH_ASSOC);
-    $question['answers'] = json_decode($question['answers'],true);
+    $question['answers'] = json_decode($question['answers'], true);
     return $question;
 }
 
-function AddQuestion($qname, $difficulty, $question, $answers, $correct){
+function AddQuestion($qname, $difficulty, $question, $answers, $correct)
+{
     include "db.php";
     $answersJson = json_encode($answers);
     $query = "INSERT INTO questions(qname,difficulty,question,answers,correct) VALUES('$qname','$difficulty','$question','$answersJson','$correct')";
@@ -65,14 +78,16 @@ function AddQuestion($qname, $difficulty, $question, $answers, $correct){
     $statement->execute();
 }
 
-function DeleteQuestion($id){
+function DeleteQuestion($id)
+{
     include "db.php";
-    $query="DELETE FROM questions WHERE id=$id";
-    $statement=$pdo->prepare($query);
+    $query = "DELETE FROM questions WHERE id=$id";
+    $statement = $pdo->prepare($query);
     $statement->execute();
 }
 
-function EditQuestion($id, $qname, $difficulty, $question, $answers, $correct){
+function EditQuestion($id, $qname, $difficulty, $question, $answers, $correct)
+{
     include "db.php";
     $answersJson = json_encode($answers);
     $query = "UPDATE questions SET qname='$qname',difficulty='$difficulty',question='$question',answers='$answersJson',correct='$correct' WHERE id='$id'";
@@ -80,7 +95,8 @@ function EditQuestion($id, $qname, $difficulty, $question, $answers, $correct){
     $statement->execute();
 }
 
-function GetQuestionsForUser($userId) {
+function GetQuestionsForUser($userId)
+{
     include "db.php";
 
     $query = "SELECT questionId FROM submissions WHERE userId = ?";
@@ -103,20 +119,22 @@ function GetQuestionsForUser($userId) {
     return $result;
 }
 
-function GetLogs($userId){
+function GetLogs($userId)
+{
     include "db.php";
     $query = "SELECT * FROM submissions WHERE userId = ?";
     $statement = $pdo->prepare($query);
     $statement->execute([$userId]);
-    $result=$statement->fetchAll();
+    $result = $statement->fetchAll();
     return $result;
 }
 
-function GetUsers(){
+function GetUsers()
+{
     include "db.php";
     $query = "SELECT * FROM users";
     $statement = $pdo->prepare($query);
     $statement->execute();
-    $result=$statement->fetchAll();
+    $result = $statement->fetchAll();
     return $result;
 }
