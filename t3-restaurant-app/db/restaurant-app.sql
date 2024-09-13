@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Generation Time: Sep 13, 2024 at 01:19 PM
+-- Generation Time: Sep 13, 2024 at 10:52 PM
 -- Server version: 9.0.1
 -- PHP Version: 8.2.8
 
@@ -65,7 +65,7 @@ CREATE TABLE `company` (
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `logo_path` varchar(255) NOT NULL,
-  `deleted_at` datetime NOT NULL
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -97,7 +97,7 @@ CREATE TABLE `food` (
   `price` int NOT NULL,
   `discount` int NOT NULL,
   `created_at` datetime NOT NULL,
-  `deleted_at` datetime NOT NULL
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -159,7 +159,7 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `balance` int NOT NULL DEFAULT '5000',
   `created_at` datetime NOT NULL,
-  `deleted_at` datetime NOT NULL
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --

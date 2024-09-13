@@ -3,8 +3,9 @@ include "../scripts/functions.php";
 
 function FindUser($username)
 {
+    global $pdo;
     include "../config/db.php";
-    $query = "SELECT username, password FROM users WHERE username=:username";
+    $query = "SELECT * FROM users WHERE username=:username";
     $statement = $pdo->prepare($query);
     $statement->execute(['username' => htmlclean($username)]);
     return $statement->fetch(PDO::FETCH_ASSOC);
@@ -12,6 +13,7 @@ function FindUser($username)
 
 function Login($username, $password)
 {
+    global $pdo;
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         include "../config/db.php";
         $user = FindUser($username);
@@ -20,14 +22,18 @@ function Login($username, $password)
             $_SESSION['user_id']  = $user['id'];
             $_SESSION['role'] = $user['role'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['name'] = $user['name'];
+            $_SESSION['surname'] = $user['surname'];
+            $_SESSION['balance'] = $user['balance'];
             return true;
         }
         return false;
     }
 }
 
-function SignIn($name, $surname, $username, $password)
+function Register($name, $surname, $username, $password)
 {
+    global $pdo;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         include "../config/db.php";
         $name = htmlclean($name);
@@ -45,11 +51,4 @@ function SignIn($name, $surname, $username, $password)
 function IsUserLoggedIn()
 {
     return isset($_SESSION['username']);
-}
-
-function Logout()
-{
-    if (IsUserLoggedIn()) {
-        unset($_SESSION['id'], $_SESSION['role'], $_SESSION['username']);
-    }
 }
