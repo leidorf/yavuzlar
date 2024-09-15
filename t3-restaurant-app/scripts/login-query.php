@@ -8,7 +8,7 @@ if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['user
         header("Location: ../view/index.php");
         exit();
     }else{
-        header("Location: ../view/login.php?message=Hatalı kullanıcı adı veya şifre");
+        header("Location: ../view/login.php?message=Hatalı kullanıcı adı, şifre veya banlı kullanıcı");
         exit();
     }
 }else{

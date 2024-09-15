@@ -9,13 +9,13 @@ if (!IsUserLoggedIn()) {
 } else {
     include "../controllers/admin-controller.php";
 
-    if (isset($_POST['id']) && !empty($_POST['id']) && is_integer($_POST['id']) ) {
-        $user_id = $_POST['id']; 
+    if (isset($_POST['user_id']) && !empty($_POST['user_id']) ) {
+        $user_id = $_POST['user_id']; 
         BanUser($user_id);
         header("Location: ../view/customer-list.php");
         exit();
     } else {
-        header("Location: ../view/profile.php?message=Eksik bilgi girdiniz.");
+        header("Location: ../view/customer-list.php?message=Eksik bilgi girdiniz.");
         exit();
     }
 }

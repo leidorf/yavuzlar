@@ -14,19 +14,19 @@ function FindUser($username)
 function Login($username, $password)
 {
     global $pdo;
-        $user = FindUser($username);
-        if ($user && password_verify($password, $user['password'])) {
-            session_regenerate_id();
-            $_SESSION['user_id']  = $user['id'];
-            $_SESSION['role'] = $user['role'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['name'] = $user['name'];
-            $_SESSION['surname'] = $user['surname'];
-            $_SESSION['balance'] = $user['balance'];
-            $_SESSION['created_at'] = $user['created_at'];
-            return true;
-        }
-        return false;
+    $user = FindUser($username);
+    if ($user && password_verify($password, $user['password']) && empty($user['deleted_at'])) {
+        session_regenerate_id();
+        $_SESSION['user_id']  = $user['id'];
+        $_SESSION['role'] = $user['role'];
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['name'] = $user['name'];
+        $_SESSION['surname'] = $user['surname'];
+        $_SESSION['balance'] = $user['balance'];
+        $_SESSION['created_at'] = $user['created_at'];
+        return true;
+    }
+    return false;
 }
 
 function Register($name, $surname, $username, $password)
