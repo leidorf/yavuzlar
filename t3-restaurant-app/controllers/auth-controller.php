@@ -1,10 +1,10 @@
 <?php
 include "../scripts/functions.php";
+include "../config/db.php";
 
 function FindUser($username)
 {
     global $pdo;
-    include "../config/db.php";
     $query = "SELECT * FROM users WHERE username=:username";
     $statement = $pdo->prepare($query);
     $statement->execute(['username' => htmlclean($username)]);
@@ -14,8 +14,6 @@ function FindUser($username)
 function Login($username, $password)
 {
     global $pdo;
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        include "../config/db.php";
         $user = FindUser($username);
         if ($user && password_verify($password, $user['password'])) {
             session_regenerate_id();
@@ -25,17 +23,16 @@ function Login($username, $password)
             $_SESSION['name'] = $user['name'];
             $_SESSION['surname'] = $user['surname'];
             $_SESSION['balance'] = $user['balance'];
+            $_SESSION['created_at'] = $user['created_at'];
             return true;
         }
         return false;
-    }
 }
 
 function Register($name, $surname, $username, $password)
 {
     global $pdo;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        include "../config/db.php";
         $name = htmlclean($name);
         $surname = htmlclean($surname);
         $username = htmlclean($username);

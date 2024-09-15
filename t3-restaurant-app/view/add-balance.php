@@ -17,7 +17,7 @@ if (!IsUserLoggedIn()) {
 <body>
     <div class="container">
         <h3>Bakiyeniz: <?php echo $_SESSION['balance']; ?></h3>
-        <form action="add-balance-query.php" method="post">
+        <form action="../scripts/add-balance-query.php" method="post">
             <p>Yüklemek istediğiniz miktarı giriniz</p>
             <input type="number" name="balance" min="0" />
             <button type="submit">Yükle</button>
