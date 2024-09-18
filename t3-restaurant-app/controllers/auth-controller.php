@@ -24,6 +24,9 @@ function Login($username, $password)
         $_SESSION['surname'] = $user['surname'];
         $_SESSION['balance'] = $user['balance'];
         $_SESSION['created_at'] = $user['created_at'];
+        if (!empty($user['company_id'])) {
+            $_SESSION['company_id'] = $user['company_id'];
+        }
         return true;
     }
     return false;

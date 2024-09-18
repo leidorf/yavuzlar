@@ -48,3 +48,11 @@ function UpdatePassword($current_password, $new_password){
         }
     }
 }
+
+function GetFoods(){
+    global $pdo;
+    $query = "SELECT * FROM food";
+    $statement=$pdo->prepare($query);
+    $statement->execute();
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
