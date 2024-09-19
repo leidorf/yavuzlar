@@ -100,3 +100,11 @@ function DeleteRestaurant($restaurant_id){
     $statement=$pdo->prepare($query);
     $statement->execute(["restaurant_id"=>$restaurant_id]);
 }
+
+function ReaddFood($food_id){
+    global $pdo;
+    $food_id = htmlclean($food_id);
+    $query="UPDATE food SET deleted_at = NULL WHERE id = :food_id";
+    $statement=$pdo->prepare($query);
+    $statement->execute(["food_id"=>$food_id]);
+}

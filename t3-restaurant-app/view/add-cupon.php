@@ -9,6 +9,7 @@ if (!IsUserLoggedIn()) {
 } else {
     include "../controllers/admin-controller.php";
     $restaurants = GetRestaurants();
+    require_once "header.php";
 ?>
 
     <!DOCTYPE html>
@@ -33,14 +34,14 @@ if (!IsUserLoggedIn()) {
                     <select name="restaurant">
                         <option value="" selected="selected">BOŞ</option>
                         <?php foreach ($restaurants as $restaurant): ?>
-                            <option value="<?php echo $restaurant['id']; ?>"><?php echo $restaurant['name'];?></option>
+                            <option value="<?php echo $restaurant['id']; ?>"><?php echo $restaurant['name']; ?></option>
                         <?php endforeach ?>
                     </select>
                 </div>
                 <button type="submit">Kaydet</button>
             </form>
         </div>
-
+        <?php require_once "footer.php"; ?>
     </body>
 
     </html>

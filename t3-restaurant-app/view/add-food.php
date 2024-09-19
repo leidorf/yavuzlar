@@ -9,6 +9,7 @@ if (!IsUserLoggedIn()) {
 }
 include "../controllers/company-controller.php";
 $restaurants = GetRestaurantByCId($_SESSION['company_id']);
+require_once "header.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,13 +34,13 @@ $restaurants = GetRestaurantByCId($_SESSION['company_id']);
 
                 <label for="image">Yemek Fotoğrafı:</label>
                 <input type="file" name="image" accept="image/*" required>
-                
+
                 <label for="price">Yemek Fiyatı:</label>
                 <input type="number" min="1" name="price" placeholder="Yemek Fiyatı" required />
-                
+
                 <label for="discount">İndirim:</label>
                 <input type="number" min="0" max="100" name="discount" placeholder="İndirim" required />
-                
+
                 <label for="restaurant_id">Restoran:</label>
                 <select name="restaurant_id" id="restaurant_id">
                     <?php foreach ($restaurants as $restaurant): ?>
@@ -50,6 +51,7 @@ $restaurants = GetRestaurantByCId($_SESSION['company_id']);
             <button type="submit">Ekle</button>
         </form>
     </div>
+    <?php require_once "footer.php"; ?>
 </body>
 
 </html>

@@ -10,22 +10,31 @@ if (IsUserLoggedIn()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/style.css">
     <title>Login</title>
 </head>
 
 <body>
-    <form action="../scripts/login-query.php" method="post">
-        <input type="text" name="username" placeholder="Kullanıcı Adı" required />
-        <input type="password" name="password" placeholder="Şifre" required />
-        <button type="submit">Giriş Yap</button>
-    </form>
-    <button type="button" onclick="goToSignIn()">Kayıt Ol</button>
-
+    <div class="container">
+        <div class="login" style="margin-top:5rem;">
+            <h3>Yavuzlar Restoran Uygulaması</h3>
+            <div style="margin-bottom: 2.5rem;">
+                <img src="../public/images/login_logo.png" alt="Login Logo" class="login_logo">
+                <form action="../scripts/login-query.php" method="post">
+                    <div class="container_obj">
+                        <label for="username">Kullanıcı Adı</label><br>
+                        <input type="text" name="username" placeholder="Kullanıcı Adı" required />
+                    </div>
+                    <div class="container_obj">
+                        <label for="password">Şifre</label><br>
+                        <input type="password" name="password" placeholder="Şifre" required />
+                    </div>
+                    <button type="submit" class="secondary">Giriş Yap</button>
+                </form>
+            </div>
+            <a href="register.php"><button>Kayıt Ol</button></a>
+        </div>
+    </div>
 </body>
-<script>
-    function goToSignIn() {
-        window.location.href = "register.php";
-    }
-</script>
 
 </html>

@@ -7,6 +7,7 @@ if (!IsUserLoggedIn()) {
 } else if ($_SESSION['role'] != 1) {
     header("Location: index.php?message=403 Yetkisiz Giriş");
 }
+require_once "header.php";
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +38,7 @@ if (!IsUserLoggedIn()) {
             <button type="submit">Ekle</button>
         </form>
     </div>
+    <?php require_once "footer.php"; ?>
 </body>
 
 </html>

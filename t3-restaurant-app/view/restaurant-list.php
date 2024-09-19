@@ -9,6 +9,7 @@ if (!IsUserLoggedIn()) {
 }
 include "../controllers/company-controller.php";
 $restaurants = GetRestaurantByCId($_SESSION['company_id']);
+require_once "header.php";
 ?>
 
 <!DOCTYPE html>
@@ -18,17 +19,19 @@ $restaurants = GetRestaurantByCId($_SESSION['company_id']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../public/css/style.css">
-    <title>Restaurants of Company <?php echo $_SESSION['company_id']; ?></title>
+    <title>Restaurants of Company</title>
 </head>
 
 <body>
     <div>
-        <h3><?php echo $_SESSION['company_id']; ?> Numaralı Firmanın Restoranları</h3>
-        <a href="./add-restaurant.php"><button type="button">Restoran Ekle</button></a>
+        <div class="centerDiv">
+            <h1>Firmanın Restoranları</h1>
+            <a href="./add-restaurant.php" class="t<?php echo $_SESSION['role']; ?>" ><button>Restoran Ekle</button></a>
+        </div>
         <?php if (empty($restaurants)) {
             echo "<p>Firmaya ait hiçbir restoran bulunamadı.</p>";
         } else { ?>
-            <div>
+            <div class="searchbox">
                 <input
                     type="search"
                     id="searchbox"
@@ -37,7 +40,7 @@ $restaurants = GetRestaurantByCId($_SESSION['company_id']);
             </div>
             <?php foreach ($restaurants as $restaurant): ?>
                 <div class="customerDiv">
-                    <div class="food_div">
+                    <div class="food_div t<?php echo $_SESSION['role']; ?>">
                         <p><?php echo $restaurant["name"]; ?></p>
                         <p><?php echo $restaurant["description"]; ?></p>
                         <img src="<?php echo $restaurant["image_path"]; ?>" alt="Restoran Fotoğrafı" class="company_logo">
@@ -51,8 +54,9 @@ $restaurants = GetRestaurantByCId($_SESSION['company_id']);
                 </div>
             <?php endforeach ?>
         <?php } ?>
-        <a href="index.php"><button type="button">Ana Sayfa</button></a>
+        <a href="index.php" style="margin-top: 1.5rem;" class="centerDiv b<?php echo $_SESSION['role']; ?>"><button>Ana Sayfa</button></a>
     </div>
+    <?php require_once "footer.php"; ?>
     <script src="../public/js/customer-list.js"></script>
 </body>
 

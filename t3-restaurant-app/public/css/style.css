@@ -1,3 +1,16 @@
+body {
+  height: 100vh;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #fcf7f1;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .company_logo,
 .food_photo {
   height: 50px;
@@ -6,6 +19,120 @@
 
 .food_div {
   display: flex;
-  justify-content:space-around;
-  border: 1px solid black;
+  justify-content: space-around;
+  border: 1px solid #d59b41;
+}
+
+.login {
+  text-align: center;
+  position: relative;
+  display: flex;
+  padding: 1.5rem;
+  width: 25rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.25rem;
+}
+
+.t0 {
+  border: 1px solid #d59b41;
+}
+
+.b0 button, .t0 button {
+  background-color: #d59b41;
+}
+
+.t1 {
+  border: 1px solid #59dbc5;
+}
+
+.b1 button, .t1 button {
+  background-color: #59dbc5;
+}
+
+.t2 {
+  border: 1px solid #88e5a0;
+}
+
+.b2 button, .t2 button {
+  background-color: #88e5a0;
+}
+
+.login_logo {
+  width: 256px;
+  height: 256px;
+  background-color: #d59b41;
+  margin-bottom: 0.5rem;
+}
+
+.login_logo .t1 {
+  background-color: #88e5a0;
+}
+
+.login_logo .t2 {
+  background-color: #59dbc5;
+}
+
+.container_obj {
+  margin-bottom: 1rem;
+}
+
+button {
+  height: 2rem;
+  min-width: 5rem;
+  background-color: #d59b41;
+  cursor: pointer;
+  border: none;
+  padding: 0.5rem;
+}
+
+.secondary {
+  background-color: #88e5a0;
+}
+
+.accent {
+  background-color: #59dbc5;
+}
+
+.dataDiv {
+  height: 4rem;
+  max-height: 6rem;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.searchbox {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.centerDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.foodDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #d59b41;
+  width: 10rem;
+}
+
+.foodDiv .food_photo {
+  height: 128px;
+  width: 128px;
+}
+
+.medPhoto {
+  height: 128px;
+  width: 128px;
 }

@@ -1,0 +1,38 @@
+.footer{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    margin-top: 1.5rem;
+    border-top: 1px solid #d59b41;
+    background-color: #d1b789;
+}
+
+.secondary{
+    border-top: 1px solid #59dbc5;
+    background-color: #4f978b;
+}
+
+.accent{
+    border-top: 1px solid #88e5a0;
+    background-color: #5dac71;
+}
+
+.yavuzlar_logo{
+    width: 50px;
+    height: 50px;
+    margin: 0 2.5rem 0 1.5rem;
+}
+
+.footer_obj {
+    font-size: small;
+    margin-right: 1.5rem;
+}
+
+.under_div{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}

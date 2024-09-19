@@ -11,6 +11,7 @@ include "../controllers/company-controller.php";
 $food_id = $_GET['f_id'];
 $food = GetFoodById($food_id);
 $restaurants = GetRestaurantByCId($_SESSION['company_id']);
+require_once "header.php";
 ?>
 
 <!DOCTYPE html>
@@ -20,13 +21,13 @@ $restaurants = GetRestaurantByCId($_SESSION['company_id']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../public/css/style.css">
-    <title>Update Food <?php echo $food_id; ?></title>
+    <title>Update Food <?php echo $food['name']; ?></title>
 </head>
 
 <body>
     <div>
         <a href="food-list.php"> <button type="button">←</button> </a>
-        <h3><?php echo $food_id; ?> Numaralı Yemeği Güncelle</h3>
+        <h3><?php echo $food['name']; ?> Yemeğini Güncelle</h3>
         <img src="<?php echo $food['image_path']; ?>" alt="Yemek Fotoğrafı" class="food_photo" >
         <form action="../scripts/update-food-query.php" method="post" enctype="multipart/form-data">
             <h3>Yemek Ekle</h3>
@@ -34,19 +35,19 @@ $restaurants = GetRestaurantByCId($_SESSION['company_id']);
                 <input type="hidden" name="food_id" value="<?php echo $food_id; ?>">
 
                 <label for="name">Yemek Adı:</label>
-                <input type="text" name="name" placeholder="Yemek Adı" required />
+                <input type="text" name="name" placeholder="Yemek Adı" required value="<?php echo $food['name']; ?>" />
 
                 <label for="description">Açıklama:</label>
-                <input type="text" name="description" placeholder="Açıklama" required />
+                <input type="text" name="description" placeholder="Açıklama" required value="<?php echo $food['description']; ?>" />
 
                 <label for="image">Yemek Fotoğrafı:</label>
                 <input type="file" name="image" accept="image/*" required>
                 
                 <label for="price">Yemek Fiyatı:</label>
-                <input type="number" min="1" name="price" placeholder="Yemek Fiyatı" required />
+                <input type="number" min="1" name="price" placeholder="Yemek Fiyatı" required value="<?php echo $food['price']; ?>" />
                 
                 <label for="discount">İndirim:</label>
-                <input type="number" min="0" max="100" name="discount" placeholder="İndirim" required />
+                <input type="number" min="0" max="100" name="discount" placeholder="İndirim" required value="<?php echo $food['discount']; ?>" />
                 
                 <label for="restaurant_id">Restoran:</label>
                 <select name="restaurant_id" id="restaurant_id">
@@ -55,10 +56,10 @@ $restaurants = GetRestaurantByCId($_SESSION['company_id']);
                     <?php endforeach ?>
                 </select>
             </div>
-            <button type="submit">Ekle</button>
+            <button type="submit">Güncelle</button>
         </form>
     </div>
-
+    <?php require_once "footer.php"; ?>
 </body>
 
 </html>

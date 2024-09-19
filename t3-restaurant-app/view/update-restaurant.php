@@ -10,6 +10,7 @@ if (!IsUserLoggedIn()) {
 include "../controllers/company-controller.php";
 $restaurant_id = $_GET['r_id'];
 $restaurant = GetRestaurantById($restaurant_id);
+require_once "header.php";
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +39,7 @@ $restaurant = GetRestaurantById($restaurant_id);
             <button type="submit">Güncelle</button>
         </form>
     </div>
-
+    <?php require_once "footer.php"; ?>
 </body>
 
 </html>
