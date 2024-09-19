@@ -27,7 +27,7 @@ require_once "header.php";
     <div>
         <div class="centerDiv">
 
-            <h1>Firmanız <?php echo $company['name']; ?> Yemekleri</h1>
+            <h1><?php echo $company['name']; ?> Yemekleri</h1>
             <img src="<?php echo $company['logo_path'] ?>" alt="Firma Logosu" class="container_obj company_logo">
             <a href="./add-food.php" class="b<?php echo $_SESSION['role']; ?>"><button>Yemek Ekle</button></a>
         </div>
@@ -75,7 +75,7 @@ require_once "header.php";
             <?php }
             endforeach ?>
         <?php } ?>
-        <a href="index.php" style="margin-top: 1.5rem;" class="searchbox b<?php echo $_SESSION['role']; ?>"><button type="button">Ana Sayfa</button></a>
+        <a href="index.php" style="margin-top: 1.5rem; text-decoration:none;" class="searchbox b<?php echo $_SESSION['role']; ?>"><button type="button">Ana Sayfa</button></a>
     </div>
     <?php require_once "footer.php"; ?>
     <script src="../public/js/customer-list.js"></script>

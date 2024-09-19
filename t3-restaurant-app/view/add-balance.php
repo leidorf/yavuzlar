@@ -19,13 +19,13 @@ require_once "header.php";
 
 <body>
     <div class="container">
-        <div class="login">
+        <div class="login t<?php echo $_SESSION['role']?>">
             <h1 class="searchbox">Bakiye Yükle</h1>
             <h3>Bakiyeniz: <?php echo $_SESSION['balance']; ?></h3>
             <form action="../scripts/add-balance-query.php" method="post">
                 <p>Yüklemek istediğiniz miktarı giriniz</p>
                 <input type="number" name="balance" min="0" style="margin-bottom: 1.5rem;" /><br>
-                <button type="submit" class="secondary">Yükle</button>
+                <button type="submit">Yükle</button>
             </form>
         </div>
     </div>

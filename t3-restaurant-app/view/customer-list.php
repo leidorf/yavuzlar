@@ -35,7 +35,7 @@ if (!IsUserLoggedIn()) {
                         onchange="liveSearch()"
                         placeholder="Müşteri Ara" />
                     <div>
-                        <label for="isBanned">Banlı mı?</label>
+                        <label for="isBanned">&nbsp;Banlı mı?</label>
                         <input type="checkbox" id="isBanned" />
                     </div>
                 </div>
@@ -54,9 +54,9 @@ if (!IsUserLoggedIn()) {
                 </div>
                 <?php foreach ($datas as $data): ?>
                     <div class="customerDiv" is-banned="<?php echo $data['user_deleted_at'] ? 'true' : 'false'; ?>">
-                        <div class="dataDiv">
+                        <div class="dataDiv t<?php echo $_SESSION['role']; ?>">
                             <p> <?php echo $data['user_id']; ?> </p>
-                            <p> <?php echo $data['user_company_id'] ? $data['company_name'] : ""; ?> </p>
+                            <p> <?php echo $data['user_company_id'] ? $data['company_name'] : "Müşteri"; ?> </p>
                             <p> <?php echo $data['user_name']; ?> </p>
                             <p> <?php echo $data['user_surname']; ?> </p>
                             <p> <?php echo $data['user_username']; ?> </p>

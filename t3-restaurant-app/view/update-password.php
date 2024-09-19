@@ -19,7 +19,7 @@ require_once "header.php";
 
 <body>
     <div class="container">
-        <div class="login">
+        <div class="login t<?php echo $_SESSION['role']; ?>">
             <h1 class="searchbox">Şifreni Güncelle</h1>
             <form action="../scripts/update-password-query.php" method="post">
                 <div>
@@ -37,7 +37,7 @@ require_once "header.php";
                         <label for="confirm_new_password">Yeni Şifreyi Tekrarlayın:</label><br>
                         <input type="password" name="confirm_new_password" required />
                     </div>
-                    <button type="submit" class="secondary">Şifreyi Güncelle</button>
+                    <button type="submit">Şifreyi Güncelle</button>
                 </div>
             </form>
         </div>

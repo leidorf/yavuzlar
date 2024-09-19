@@ -3,7 +3,7 @@
   align-items: center;
   width: 100%;
   height: 4rem;
-  background-color: #d59b41;
+  background-color: var(--admin);
   margin-bottom: 1.5rem;
 }
 
@@ -12,7 +12,7 @@
   align-items: center;
   width: 100%;
   height: 4rem;
-  background-color: #59dbc5;
+  background-color: var(--company);
   margin-bottom: 1.5rem;
 }
 
@@ -21,7 +21,7 @@
   align-items: center;
   width: 100%;
   height: 4rem;
-  background-color: #88e5a0;
+  background-color: var(--user);
   margin-bottom: 1.5rem;
 }
 
@@ -36,10 +36,11 @@
 }
 
 .logout_btn {
-  margin-top: 1rem;
-  margin-right: 1rem;
-  justify-self: end;
-  background-color: #ffffff00;
+  position: fixed;
+  right: 1.5rem;
+  top: 1rem;
+  background-color: #ffffffa6;
+  cursor: pointer;
 }
 
 .user_header .header_obj button,

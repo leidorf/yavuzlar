@@ -1,8 +1,36 @@
+:root {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  
+  --admin: #eb5654;
+  --admin_dark: #c04745;
+  --company: #eba228;
+  --company_dark: #e29d26;
+  --user: #ff963b;
+  --user_dark: #f1af8a;
+}
+
 body {
   height: 100vh;
   min-height: 100vh;
   margin: 0;
   background-color: #fcf7f1;
+}
+
+button {
+  height: 2rem;
+  min-width: 5rem;
+  background-color: var(--admin);
+  cursor: pointer;
+  border: none;
+  padding: 0.5rem;
+}
+
+button:hover {
+  box-shadow: 0px 10px 10px -8px rgba(0, 0, 0, 0.637);
+  scale: 1.0625;
 }
 
 .container {
@@ -20,7 +48,7 @@ body {
 .food_div {
   display: flex;
   justify-content: space-around;
-  border: 1px solid #d59b41;
+  border: 1px solid var(--admin);
 }
 
 .login {
@@ -36,63 +64,49 @@ body {
 }
 
 .t0 {
-  border: 1px solid #d59b41;
+  border: 1px solid var(--admin);
 }
 
-.b0 button, .t0 button {
-  background-color: #d59b41;
+.b0 button,
+.t0 button {
+  background-color: var(--admin);
 }
 
 .t1 {
-  border: 1px solid #59dbc5;
+  border: 1px solid var(--company);
 }
 
-.b1 button, .t1 button {
-  background-color: #59dbc5;
+.b1 button,
+.t1 button {
+  background-color: var(--company);
 }
 
 .t2 {
-  border: 1px solid #88e5a0;
+  border: 1px solid var(--user);
 }
 
-.b2 button, .t2 button {
-  background-color: #88e5a0;
+.b2 button,
+.t2 button {
+  background-color: var(--user);
 }
 
 .login_logo {
   width: 256px;
   height: 256px;
-  background-color: #d59b41;
+  background-color: var(--admin);
   margin-bottom: 0.5rem;
 }
 
 .login_logo .t1 {
-  background-color: #88e5a0;
+  background-color: var(--company);
 }
 
 .login_logo .t2 {
-  background-color: #59dbc5;
+  background-color: var(--user);
 }
 
 .container_obj {
   margin-bottom: 1rem;
-}
-
-button {
-  height: 2rem;
-  min-width: 5rem;
-  background-color: #d59b41;
-  cursor: pointer;
-  border: none;
-  padding: 0.5rem;
-}
-
-.secondary {
-  background-color: #88e5a0;
-}
-
-.accent {
-  background-color: #59dbc5;
 }
 
 .dataDiv {
@@ -116,6 +130,14 @@ button {
   justify-content: center;
   align-items: center;
   margin-bottom: 1.5rem;
+  text-decoration: none;
+}
+
+.foodSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1rem;
 }
 
 .foodDiv {
@@ -123,16 +145,38 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid #d59b41;
   width: 10rem;
+  padding: 0.5rem;
 }
 
-.foodDiv .food_photo {
-  height: 128px;
-  width: 128px;
-}
-
+.foodDiv .food_photo,
 .medPhoto {
   height: 128px;
   width: 128px;
+}
+
+.imageContainer {
+  height: 128px;
+  width: 128px;
+  position: relative;
+}
+
+.discount {
+  position: absolute;
+  bottom: -1rem;
+  right: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: rgba(255, 255, 255, 0.315);
+}
+
+.highlight2 {
+  text-align: center;
+  min-width: 5rem;
+  background-color: var(--user);
+}
+
+.description {
+  font-size: 0.75rem;
+  color: rgb(80, 80, 80);
 }

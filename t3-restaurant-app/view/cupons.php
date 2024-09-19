@@ -47,15 +47,15 @@ if (!IsUserLoggedIn()) {
                 </div>
                 <?php foreach ($cupons as $i => $cupon): ?>
                     <div class="customerDiv">
-                        <div class="dataDiv">
+                        <div class="dataDiv t<?php echo $_SESSION['role']; ?>">
                             <p><?php echo $cupon['id']; ?></p>
-                            <p><?php echo $cupon['restaurant_id']; ?></p>
+                            <p><?php echo $cupon['restaurant_id'] ? $cupon['restaurant_id'] : "Genel"; ?></p>
                             <p><?php echo $cupon['name']; ?></p>
                             <p><?php echo $cupon['discount']; ?></p>
                             <p><?php echo $cupon['created_at']; ?></p>
                             <form action="../scripts/delete-cupon.php" method="post">
                                 <input type="hidden" name="cupon_id" value="<?php echo $cupon['id']; ?>" />
-                                <button type="submit">X</button>
+                                <button style="margin-top: 1rem;" type="submit">X</button>
                             </form>
                         </div>
                     </div>

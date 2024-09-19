@@ -24,20 +24,29 @@ require_once "header.php";
 </head>
 
 <body>
-    <div>
-        <a href="restaurant-list.php"> <button type="button">←</button> </a>
-        <h3><?php echo $restaurant['name']; ?> Restoranını Güncelle</h3>
-        <img src="<?php echo $restaurant['image_path']; ?>" alt="Firma Logosu" class="company_logo">
-        <form action="../scripts/update-restaurant-query.php" method="post" enctype="multipart/form-data">
-            <div>
-                <input type="hidden" name="restaurant_id" value="<?php echo $restaurant['id']; ?>" />
-                <input type="text" value="<?php echo $restaurant['name']; ?>" placeholder="Restoran Adı" name="name" required />
-                <input type="text" value="<?php echo $restaurant['description']; ?>" name="description" placeholder="Açıklama" required />
-                <label for="image">Restoran Logosu:</label>
-                <input type="file" value="<?php echo $restaurant['image_path']; ?>" name="image" accept="image/*" required />
-            </div>
-            <button type="submit">Güncelle</button>
-        </form>
+    <div class="container">
+        <div class="login t<?php echo $_SESSION['role']; ?>">
+            <h1><?php echo $restaurant['name']; ?> Restoranını Güncelle</h1>
+            <img src="<?php echo $restaurant['image_path']; ?>" alt="Firma Logosu" class="medPhoto">
+            <form action="../scripts/update-restaurant-query.php" method="post" enctype="multipart/form-data">
+                <div class="container_obj">
+                    <input type="hidden" name="restaurant_id" value="<?php echo $restaurant['id']; ?>" />
+                </div>
+                <div class="container_obj">
+                    <label for="name">Ad</label><br>
+                    <input type="text" value="<?php echo $restaurant['name']; ?>" placeholder="Restoran Adı" name="name" required />
+                </div>
+                <div class="container_obj">
+                    <label for="description">Açıklama</label><br>
+                    <input type="text" value="<?php echo $restaurant['description']; ?>" name="description" placeholder="Açıklama" required />
+                </div>
+                <div class="container_obj">
+                    <label for="image">Restoran Logosu:</label><br>
+                    <input type="file" value="<?php echo $restaurant['image_path']; ?>" name="image" accept="image/*" required />
+                </div>
+                <button type="submit">Güncelle</button>
+            </form>
+        </div>
     </div>
     <?php require_once "footer.php"; ?>
 </body>

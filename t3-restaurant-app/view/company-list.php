@@ -51,17 +51,17 @@ if (!IsUserLoggedIn()) {
                 </div>
                 <?php foreach ($companies as $i => $company): ?>
                     <div class="customerDiv" is-banned="<?php echo $company['deleted_at'] ? 'true' : 'false'; ?>">
-                        <div class="dataDiv">
+                        <div class="dataDiv t<?php echo $_SESSION['role']; ?>">
                             <p><?php echo $company['id']; ?></p>
                             <p><?php echo $company['name']; ?></p>
                             <p><?php echo $company['description']; ?></p>
                             <img src="<?php echo $company['logo_path']; ?>" alt="Firma Logosu" class="company_logo" title="<?php echo $company['logo_path']; ?>">
-                            <p><?php echo $company['deleted_at']; ?></p>
+                            <p><?php echo $company['deleted_at']? $company['deleted_at'] : "Mevcut" ; ?></p>
                             <a href="company-foods.php?c_id=<?php echo $company['id']; ?>"><button>Yemekleri Listele</button></a>
                             <a href="update-company.php?c_id=<?php echo $company['id']; ?>"><button>Firmayı Güncelle</button></a>
                             <form action="../scripts/ban-company.php" method="post">
                                 <input type="hidden" name="company_id" value="<?php echo $company['id']; ?>" />
-                                <button type="submit">X</button>
+                                <button type="submit" style="margin-top: 1rem;" >X</button>
                             </form>
                         </div>
                     </div>

@@ -23,29 +23,44 @@ if (!IsUserLoggedIn()) {
     </head>
 
     <body>
-        <div class="container">
-            <h3>Firmanın Yemekleri</h3>
+        <div class="">
+            <h1 class="centerDiv">Firmanın Yemekleri</h1>
             <div>
-                <a href="company-list.php"><button> <- </button></a>
                 <?php if (empty($datas)) {
-                    echo "<p>Firmaya ait herhangi bir yemek bulunamadı.</p>";
+                    echo "<p class='centerDiv'>Firmaya ait herhangi bir yemek bulunamadı.</p>";
                 } else { ?>
-                    <div>
+                    <div class="searchbox">
                         <input
                             type="search"
                             id="searchbox"
                             onchange="liveSearch()"
                             placeholder="Müşteri Ara" />
                         <div>
-                            <label for="isBanned">Silindi mi?</label>
+                            <label for="isBanned">&nbsp;Silindi mi?</label>
                             <input type="checkbox" id="isBanned" />
                         </div>
+                    </div>
+                    <div class="dataDiv">
+                        <p>R ID</p>
+                        <p>C ID</p>
+                        <p>R Adı</p>
+                        <p>R Açıklama</p>
+                        <p>R Foto</p>
+                        <p>R Kayıt</p>
+                        <p>Y ID</p>
+                        <p>Y Adı</p>
+                        <p>Y Açıklama</p>
+                        <p>Y Foto</p>
+                        <p>Fiyat</p>
+                        <p>İndirim</p>
+                        <p>Kayıt</p>
+                        <p>Silinme</p>
                     </div>
                     <?php foreach ($datas as $i => $data):
                         if ($data['food_name']) {
                     ?>
                             <div class="customerDiv">
-                                <div class="food_div">
+                                <div class="dataDiv t<?php echo $_SESSION['role']; ?>">
                                     <p><?php echo $data["restaurant_id"]; ?></p>
                                     <p><?php echo $data["restaurant_company_id"]; ?></p>
                                     <p><?php echo $data["restaurant_name"]; ?></p>

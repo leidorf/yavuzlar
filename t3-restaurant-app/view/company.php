@@ -24,6 +24,7 @@ require_once "header.php";
 <body>
     <div class="container">
         <div class="login t<?php echo $_SESSION['role']; ?>">
+            <h1>Firma</h1>
             <img name="logo" class="medPhoto container_obj" src="<?php echo $company['logo_path']; ?>" alt="Firma Logosu" class="company_logo">
 
             <label for="name">İsim:</label>

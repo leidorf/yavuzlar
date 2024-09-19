@@ -22,7 +22,7 @@ require_once "header.php";
         <div class="login t<?php echo $_SESSION['role']; ?>">
 
             <h2>Yavuzlar Restoran Uygulaması</h2>
-            <h3>Hoşgeldin <?php echo $_SESSION['name'] . " " . $_SESSION['surname']; ?>! </h3>
+            <h3>Hoşgeldin <?php echo $_SESSION['username']; ?>! </h3>
             <div>
                 <a href="profile.php"><button class="container_obj">Profil</button></a><br>
 

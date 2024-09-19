@@ -19,7 +19,7 @@ require_once "header.php";
 
 <body>
     <div class="container">
-        <div class="login">
+        <div class="login t<?php echo $_SESSION['role']; ?>">
             <h1 class="searchbox">Profilini Güncelle</h1>
             <form action="../scripts/update-profile-query.php" method="post">
                 <div>
@@ -35,7 +35,7 @@ require_once "header.php";
                         <label for="username">Kullanıcı Adı:</label><br>
                         <input type="text" name="username" placeholder="Kullanıcı Adı" value="<?php echo $_SESSION['username']; ?>" required />
                     </div>
-                    <button type="submit" class="secondary">Profili Güncelle</button>
+                    <button type="submit">Profili Güncelle</button>
                 </div>
             </form>
         </div>

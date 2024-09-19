@@ -3,35 +3,34 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
+    min-height: 4rem;
     height: auto;
     margin-top: 1.5rem;
-    border-top: 1px solid #d59b41;
-    background-color: #d1b789;
+    background-color: var(--admin_dark);
 }
 
 .secondary{
-    border-top: 1px solid #59dbc5;
-    background-color: #4f978b;
+    background-color: var(--company_dark);
 }
 
 .accent{
-    border-top: 1px solid #88e5a0;
-    background-color: #5dac71;
+    background-color: var(--user_dark);
 }
 
 .yavuzlar_logo{
     width: 50px;
     height: 50px;
-    margin: 0 2.5rem 0 1.5rem;
+    margin: .5rem 2.5rem 0 0;
 }
 
 .footer_obj {
     font-size: small;
     margin-right: 1.5rem;
+    color: #303030;
 }
 
 .under_div{
-    width: 100%;
+    width: 95%;
     display: flex;
     justify-content: space-between;
     align-items:center;

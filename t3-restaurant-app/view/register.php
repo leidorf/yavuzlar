@@ -16,7 +16,7 @@ if (IsUserLoggedIn()) {
 
 <body>
     <div class="container">
-        <div class="login" style="margin-top:5rem;">
+        <div class="login t0" style="margin-top:5rem;">
             <h3>Kayıt Ol</h3>
             <img src="../public/images/login_logo.png" alt="Kayıt Logosu" class="login_logo">
             <form action="../scripts/register-query.php" method="post">
@@ -37,10 +37,10 @@ if (IsUserLoggedIn()) {
                         <label for="password">Şifre</label><br>
                         <input type="password" name="password" placeholder="Şifre" required />
                     </div>
-                    <button type="submit" class="secondary">Kayıt Ol</button>
+                    <button type="submit">Kayıt Ol</button>
                 </div>
             </form>
-            <a href="login.php"><button>Giriş Yap</button></a>
+            <a href="login.php"><button style="background-color: var(--company);">Giriş Yap</button></a>
         </div>
     </div>
 </body>

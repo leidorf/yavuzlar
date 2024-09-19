@@ -40,7 +40,7 @@ require_once "header.php";
             </div>
             <?php foreach ($restaurants as $restaurant): ?>
                 <div class="customerDiv">
-                    <div class="food_div t<?php echo $_SESSION['role']; ?>">
+                    <div class="dataDiv t<?php echo $_SESSION['role']; ?>">
                         <p><?php echo $restaurant["name"]; ?></p>
                         <p><?php echo $restaurant["description"]; ?></p>
                         <img src="<?php echo $restaurant["image_path"]; ?>" alt="Restoran Fotoğrafı" class="company_logo">
@@ -48,7 +48,7 @@ require_once "header.php";
                         <a href="update-restaurant.php?r_id=<?php echo $restaurant['id']; ?>"><button>Restoranı Güncelle</button></a>
                         <form action="../scripts/delete-restaurant.php" method="post">
                             <input type="hidden" name="restaurant_id" id="restaurant_id" value="<?php echo $restaurant['id']; ?>">
-                            <button type="submit">X</button>
+                            <button type="submit" style="margin-top: 1rem;" >X</button>
                         </form>
                     </div>
                 </div>

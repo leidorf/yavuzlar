@@ -22,10 +22,13 @@
     } ?>
     <div class="under_div">
         <div style="display: flex;">
-            <img src="../public/images/logo.png" alt="Yavuzlar Logo" class="yavuzlar_logo">
+            <a target="_blank" rel="noopener noreferrer" href="https://yavuzlar.org">
+
+                <img src="../public/images/logo.png" alt="Yavuzlar Logo" class="yavuzlar_logo">
+            </a>
             <p class="footer_obj">
                 Yavuzlar Restoran Uygulaması<br>
-                Bu uygulama Yavuzlar Web Güvenliği ve Yazılım Geliştirme Takımı altında <a href="https://github.com/leidorf" target="_blank" rel="noopener noreferrer">leidorf</a> tarafından geliştirilmiştir.
+                Bu uygulama Yavuzlar Web Güvenliği ve Yazılım Geliştirme Takımı altında <a href="https://github.com/leidorf" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">leidorf</a> tarafından geliştirilmiştir.
             </p>
         </div>
         <p class="footer_obj">

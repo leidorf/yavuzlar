@@ -20,7 +20,7 @@ require_once "header.php";
 </head>
 
 <body>
-    <div class="">
+    <div>
         <h1 class="searchbox">Yemekler</h1>
         <?php if (empty($foods)) {
             echo "<p class='searchbox'>Hiçbir yemek bulunamadı.</p>";
@@ -32,27 +32,26 @@ require_once "header.php";
                     onchange="liveSearch()"
                     placeholder="Yemek Ara" />
             </div>
-            <div class="dataDiv">
-                    <p>Ad</p>
-                    <p>Açıklama</p>
-                    <p>Fotoğraf</p>
-                    <p>Fiyat</p>
-                    <p>İndirim</p>
-                </div>
-            <?php foreach ($foods as $food): ?>
-                <div class="customerDiv">
-                    <div class="foodDiv">
-                        <img class="food_photo" src="<?php echo $food["image_path"]; ?>" alt="Yemek Fotoğrafı" class="food_photo">
-                        <p><?php echo $food["name"]; ?></p>
-                        <p><?php echo $food["description"]; ?></p>
-                        <p><?php echo $food["price"]; ?></p>
-                        <p><?php echo $food["discount"]? "%". $food['discount']: "indirim yoq" ; ?></p>
+            <div class="foodSection">
+                <?php foreach ($foods as $food): ?>
+                    <div class="customerDiv">
+                        <div class="foodDiv t<?php echo $_SESSION['role']; ?>">
+                            <div class="imageContainer">
+                                <img class="food_photo" src="<?php echo $food["image_path"]; ?>" alt="Yemek Fotoğrafı" class="food_photo">
+                                <?php if ($food['discount']) { ?>
+                                    <span class="discount"><?php echo "%" . $food["discount"] . "!"; ?></span>
+                                <?php } ?>
+                            </div>
+                            <p><?php echo $food["name"]; ?></p>
+                            <span class="description" ><?php echo $food["description"]; ?></span>
+                            <p <?php echo $food['discount'] ? "class='highlight" . $_SESSION['role'] . "'>" . $food["price"] * (100 - $food['discount']) / 100 : ">" . $food['price']; ?></p>
+                        </div>
                     </div>
-                </div>
-            <?php endforeach ?>
+                <?php endforeach ?>
+            </div>
         <?php } ?>
     </div>
-    <a href="index.php"><button type="button">Ana Sayfa</button></a>
+    <a href="index.php" class="centerDiv b<?php echo $_SESSION['role']; ?>"><button>Ana Sayfa</button></a>
     <?php require_once "footer.php"; ?>
     <script src="../public/js/customer-list.js"></script>
 </body>

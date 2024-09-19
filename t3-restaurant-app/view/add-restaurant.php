@@ -16,27 +16,33 @@ require_once "header.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/style.css">
     <title>Add Restaurant to Company <?php echo $_SESSION['company_id']; ?></title>
 </head>
 
 <body>
-    <div>
-        <h3>Restoran Ekle</h3>
-        <a href="./restaurant-list.php"><button type="button"><- </button></a>
-        <form action="../scripts/add-restaurant-query.php" method="post" enctype="multipart/form-data">
-            <div>
-                <label for="name">Restoran Adı:</label>
-                <input type="text" name="name" placeholder="Restoran Adı" required />
+    <div class="container">
+        <div class="login t<?php echo $_SESSION['role']; ?>">
 
-                <label for="description">Açıklama:</label>
-                <input type="text" name="description" placeholder="Açıklama" required />
+            <h1>Restoran Ekle</h1>
+            <form action="../scripts/add-restaurant-query.php" method="post" enctype="multipart/form-data">
+                <div class="container_obj">
+                    <label for="name">Restoran Adı:</label><br>
+                    <input type="text" name="name" placeholder="Restoran Adı" required />
+                </div>
 
-                <label for="image">Restoran Fotoğrafı:</label>
-                <input type="file" name="image" accept="image/*" required>
-            </div>
+                <div class="container_obj">
+                    <label for="description">Açıklama:</label><br>
+                    <input type="text" name="description" placeholder="Açıklama" required />
+                </div>
+                <div class="container_obj">
+                    <label for="image">Restoran Fotoğrafı:</label><br>
+                    <input type="file" name="image" accept="image/*" required>
+                </div>
 
-            <button type="submit">Ekle</button>
-        </form>
+                <button type="submit">Ekle</button>
+            </form>
+        </div>
     </div>
     <?php require_once "footer.php"; ?>
 </body>

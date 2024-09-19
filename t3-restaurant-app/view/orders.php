@@ -41,7 +41,7 @@ require_once "header.php";
             <?php endforeach ?>
         <?php } ?>
     </div>
-    <a href="index.php"><button type="button">Ana Sayfa</button></a>
+    <a href="index.php" class="centerDiv b<?php echo $_SESSION['role']; ?>"><button>Ana Sayfa</button></a>
     <?php require_once "footer.php"; ?>
 </body>
 

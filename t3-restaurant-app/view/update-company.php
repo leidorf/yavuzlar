@@ -26,16 +26,26 @@ require_once "header.php";
 </head>
 
 <body>
-    <h1><?php echo $company['name']; ?> Firmasını Güncelle</h1>
-    <img src="<?php echo $company['logo_path']; ?>" alt="Firma Logosu" class="company_logo">
     <div class="container">
         <div class="login t<?php echo $_SESSION['role']; ?>">
+            <div class="centerDiv" >
+                <h1><?php echo $company['name']; ?> Firmasını Güncelle</h1>
+                <img src="<?php echo $company['logo_path']; ?>" alt="Firma Logosu" class="medPhoto">
+            </div>
             <form action="../scripts/update-company-query.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="company_id" value="<?php echo $company['id']; ?>" />
-                <input type="text" value="<?php echo $company['name']; ?>" placeholder="Firma Adı" name="name" required />
-                <input type="text" value="<?php echo $company['description']; ?>" name="description" placeholder="Açıklama" required />
-                <label for="image">Firma Logosu:</label>
-                <input type="file" value="<?php echo $company['logo_path']; ?>" name="image" accept="image/*" required />
+                <div class="container_obj">
+                    <label for="name">Firma Adı</label><br>
+                    <input type="text" value="<?php echo $company['name']; ?>" placeholder="Firma Adı" name="name" required />
+                </div>
+                <div class="container_obj">
+                    <label for="description">Açıklama</label><br>
+                    <input type="text" value="<?php echo $company['description']; ?>" name="description" placeholder="Açıklama" required />
+                </div>
+                <div class="container_obj">
+                    <label for="image">Firma Logosu:</label><br>
+                    <input type="file" value="<?php echo $company['logo_path']; ?>" name="image" accept="image/*" required />
+                </div>
                 <button type="submit">Güncelle</button>
             </form>
         </div>
