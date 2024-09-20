@@ -26,34 +26,36 @@ require_once "header.php";
             echo "<p class='searchbox'>Hiçbir yemek bulunamadı.</p>";
         } else { ?>
             <div class="searchbox">
-                <input
-                    type="search"
-                    id="searchbox"
-                    onchange="liveSearch()"
-                    placeholder="Yemek Ara" />
+                <input type="search" id="searchbox" placeholder="Yemek Ara" />
             </div>
             <div class="foodSection">
                 <?php foreach ($foods as $food): ?>
-                    <div class="customerDiv">
+                    <div class="dataElement container_obj">
                         <div class="foodDiv t<?php echo $_SESSION['role']; ?>">
                             <div class="imageContainer">
-                                <img class="food_photo" src="<?php echo $food["image_path"]; ?>" alt="Yemek Fotoğrafı" class="food_photo">
+                                <img class="foodPhoto" src="<?php echo $food["image_path"]; ?>" alt="Yemek Fotoğrafı">
                                 <?php if ($food['discount']) { ?>
                                     <span class="discount"><?php echo "%" . $food["discount"] . "!"; ?></span>
                                 <?php } ?>
                             </div>
                             <p><?php echo $food["name"]; ?></p>
-                            <span class="description" ><?php echo $food["description"]; ?></span>
+                            <span class="description"><?php echo $food["description"]; ?></span>
                             <p <?php echo $food['discount'] ? "class='highlight" . $_SESSION['role'] . "'>" . $food["price"] * (100 - $food['discount']) / 100 : ">" . $food['price']; ?></p>
+                            <form action="../scripts/add-to-basket.php" method="post">
+                                <input type="hidden" name="food_id" value="<?php echo $food['id']; ?>">
+                                <button type="submit">Ekle</button>
+                            </form>
                         </div>
                     </div>
                 <?php endforeach ?>
             </div>
         <?php } ?>
     </div>
-    <a href="index.php" class="centerDiv b<?php echo $_SESSION['role']; ?>"><button>Ana Sayfa</button></a>
+    <div class="centerDiv">
+        <a href="index.php" class="b<?php echo $_SESSION['role']; ?>"><button>Ana Sayfa</button></a>
+    </div>
     <?php require_once "footer.php"; ?>
-    <script src="../public/js/customer-list.js"></script>
+    <script src="../public/js/searchbox.js"></script>
 </body>
 
 </html>

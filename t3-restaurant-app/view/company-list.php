@@ -22,56 +22,73 @@ if (!IsUserLoggedIn()) {
     </head>
 
     <body>
-        <div class="">
+        <div class="centerDiv">
             <h1 class="searchbox">Firmalar</h1>
-            <a href="./add-company.php" class="searchbox"><button>Firma Ekle</button></a>
+            <a href="./add-company.php" class="centerDiv cleanText"><button>Firma Ekle</button></a>
             <?php if (empty($companies)) {
                 echo "<p>Hiç müşteri bulunamadı.</p>";
             } else { ?>
                 <div class="searchbox">
-                    <input
-                        type="search"
-                        id="searchbox"
-                        onchange="liveSearch()"
-                        placeholder="Müşteri Ara" />
+                    <input type="search" id="searchbox" placeholder="Firma Ara" />
                     <div>
-                        <label for="isBanned">Banlı mı?</label>
+                        <label for="isBanned">&nbsp;Banlı mı?</label>
                         <input type="checkbox" id="isBanned" />
                     </div>
                 </div>
-                <div class="dataDiv">
-                    <p>ID</p>
-                    <p>Ad</p>
-                    <p>Açıklama</p>
-                    <p>Fotoğraf</p>
-                    <p>Silinme</p>
-                    <p>Yemekler</p>
-                    <p>Güncelleme</p>
-                    <p>Silme</p>
-                </div>
-                <?php foreach ($companies as $i => $company): ?>
-                    <div class="customerDiv" is-banned="<?php echo $company['deleted_at'] ? 'true' : 'false'; ?>">
-                        <div class="dataDiv t<?php echo $_SESSION['role']; ?>">
-                            <p><?php echo $company['id']; ?></p>
-                            <p><?php echo $company['name']; ?></p>
-                            <p><?php echo $company['description']; ?></p>
-                            <img src="<?php echo $company['logo_path']; ?>" alt="Firma Logosu" class="company_logo" title="<?php echo $company['logo_path']; ?>">
-                            <p><?php echo $company['deleted_at']? $company['deleted_at'] : "Mevcut" ; ?></p>
-                            <a href="company-foods.php?c_id=<?php echo $company['id']; ?>"><button>Yemekleri Listele</button></a>
-                            <a href="update-company.php?c_id=<?php echo $company['id']; ?>"><button>Firmayı Güncelle</button></a>
-                            <form action="../scripts/ban-company.php" method="post">
-                                <input type="hidden" name="company_id" value="<?php echo $company['id']; ?>" />
-                                <button type="submit" style="margin-top: 1rem;" >X</button>
-                            </form>
-                        </div>
-                    </div>
-                <?php endforeach ?>
+                <table class="dataTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Ad</th>
+                            <th>Açıklama</th>
+                            <th>Fotoğraf</th>
+                            <th>Silinme</th>
+                            <th>Yemekler</th>
+                            <th>Güncelle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($companies as $company): ?>
+                            <tr class="t<?php echo $_SESSION['role']; ?> dataElement dataTable" is-banned="<?php echo $company['deleted_at'] ? 'true' : 'false'; ?>">
+                                <td>
+                                    <p> <?php echo $company['id']; ?> </p>
+                                </td>
+                                <td>
+                                    <p> <?php echo $company['name']; ?> </p>
+                                </td>
+                                <td>
+                                    <p> <?php echo $company['description']; ?> </p>
+                                </td>
+                                <td>
+                                    <img src="<?php echo $company['logo_path']; ?>" alt="Firma Logosu" class="company_logo" title="<?php echo $company['logo_path']; ?>">
+                                </td>
+                                <td>
+                                    <p><?php echo $company['deleted_at'] ? $company['deleted_at'] : "Mevcut"; ?></p>
+                                </td>
+                                <td>
+                                    <a href="company-foods.php?c_id=<?php echo $company['id']; ?>"><button>Yemekleri Listele</button></a>
+                                </td>
+                                <td>
+                                    <a href="update-company.php?c_id=<?php echo $company['id']; ?>"><button>Firmayı Güncelle</button></a>
+                                </td>
+                                <td>
+                                    <form action="../scripts/ban-company.php" method="post">
+                                        <input type="hidden" name="company_id" value="<?php echo $company['id']; ?>" />
+                                        <button type="submit">X</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
             <?php } ?>
         </div>
-
-        <a href="index.php" style="margin-top: 1.5rem;" class="searchbox"><button>Ana Sayfa</button></a>
+        <div class="centerDiv">
+            <a href="index.php" style="margin-top: 1.5rem;" class="cleanText"><button>Ana Sayfa</button></a>
+        </div>
         <?php require_once "footer.php"; ?>
-        <script src="../public/js/customer-list.js"></script>
+        <script src="../public/js/searchbox.js"></script>
     </body>
 
     </html>

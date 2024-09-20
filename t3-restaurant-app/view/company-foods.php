@@ -23,67 +23,93 @@ if (!IsUserLoggedIn()) {
     </head>
 
     <body>
-        <div class="">
-            <h1 class="centerDiv">Firmanın Yemekleri</h1>
+        <div class="centerDiv">
+            <h1>Firmanın Yemekleri</h1>
             <div>
                 <?php if (empty($datas)) {
                     echo "<p class='centerDiv'>Firmaya ait herhangi bir yemek bulunamadı.</p>";
                 } else { ?>
                     <div class="searchbox">
-                        <input
-                            type="search"
-                            id="searchbox"
-                            onchange="liveSearch()"
-                            placeholder="Müşteri Ara" />
+                        <input type="search" id="searchbox" placeholder="Yemek Ara" />
                         <div>
                             <label for="isBanned">&nbsp;Silindi mi?</label>
                             <input type="checkbox" id="isBanned" />
                         </div>
                     </div>
-                    <div class="dataDiv">
-                        <p>R ID</p>
-                        <p>C ID</p>
-                        <p>R Adı</p>
-                        <p>R Açıklama</p>
-                        <p>R Foto</p>
-                        <p>R Kayıt</p>
-                        <p>Y ID</p>
-                        <p>Y Adı</p>
-                        <p>Y Açıklama</p>
-                        <p>Y Foto</p>
-                        <p>Fiyat</p>
-                        <p>İndirim</p>
-                        <p>Kayıt</p>
-                        <p>Silinme</p>
-                    </div>
-                    <?php foreach ($datas as $i => $data):
-                        if ($data['food_name']) {
-                    ?>
-                            <div class="customerDiv">
-                                <div class="dataDiv t<?php echo $_SESSION['role']; ?>">
-                                    <p><?php echo $data["restaurant_id"]; ?></p>
-                                    <p><?php echo $data["restaurant_company_id"]; ?></p>
-                                    <p><?php echo $data["restaurant_name"]; ?></p>
-                                    <p><?php echo $data["restaurant_description"]; ?></p>
-                                    <img src="<?php echo $data['restaurant_image_path'] ?>" alt="Restoran Logosu" class="company_logo" title="<?php echo $data["restaurant_image_path"]; ?>">
-                                    <p><?php echo $data["restaurant_created_at"]; ?></p>
-                                    <p><?php echo $data["food_id"]; ?></p>
-                                    <p><?php echo $data["food_name"]; ?></p>
-                                    <p><?php echo $data["food_description"]; ?></p>
-                                    <img src="<?php echo $data['food_image_path'] ?>" alt="Yemek Fotoğrafı" class="food_photo" title="<?php echo $data["food_image_path"]; ?>">
-                                    <p><?php echo $data["food_price"]; ?></p>
-                                    <p><?php echo $data["food_discount"]; ?></p>
-                                    <p><?php echo $data["food_created_at"]; ?></p>
-                                    <p><?php echo $data["food_deleted_at"] ? "Silindi (" . $data["food_deleted_at"] . ")" : "Mevcut" ?></p>
-                                </div>
-                            </div>
-                    <?php }
-                    endforeach ?>
+                    <table class="dataTable">
+                        <thead>
+                            <tr>
+                                <th>R ID</th>
+                                <th>C ID</th>
+                                <th>Restoran</th>
+                                <th>Açıklama</th>
+                                <th>Fotoğraf</th>
+                                <th>Kayıt</th>
+                                <th>Y ID</th>
+                                <th>Yemek</th>
+                                <th>Açıklama</th>
+                                <th>Fotoğraf</th>
+                                <th>Fiyat</th>
+                                <th>İndirim</th>
+                                <th>Kayıt</th>
+                                <th>Silinme</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($datas as $data): ?>
+                                <?php if ($data['food_name']) { ?>
+                                    <tr class="t<?php echo $_SESSION['role']; ?> dataElement dataTable" is-banned="<?php echo $data['food_deleted_at'] ? 'true' : 'false'; ?>">
+                                        <td>
+                                            <p><?php echo $data["restaurant_id"]; ?></p>
+                                        </td>
+                                        <td>
+                                            <p><?php echo $data["restaurant_company_id"]; ?></p>
+                                        </td>
+                                        <td>
+                                            <p><?php echo $data["restaurant_name"]; ?></p>
+                                        </td>
+                                        <td>
+                                            <p><?php echo $data["restaurant_description"]; ?></p>
+                                        </td>
+                                        <td>
+                                            <img src="<?php echo $data['restaurant_image_path'] ?>" alt="Restoran Logosu" class="company_logo" title="<?php echo $data["restaurant_image_path"]; ?>">
+                                        </td>
+                                        <td>
+                                            <p><?php echo $data["restaurant_created_at"]; ?></p>
+                                        </td>
+                                        <td>
+                                            <p><?php echo $data["food_id"]; ?></p>
+                                        </td>
+                                        <td>
+                                            <p><?php echo $data["food_name"]; ?></p>
+                                        </td>
+                                        <td>
+                                            <p><?php echo $data["food_description"]; ?></p>
+                                        </td>
+                                        <td>
+                                            <img src="<?php echo $data['food_image_path'] ?>" alt="Yemek Fotoğrafı" class="food_photo" title="<?php echo $data["food_image_path"]; ?>">
+                                        </td>
+                                        <td>
+                                            <p><?php echo $data["food_price"]; ?></p>
+                                        </td>
+                                        <td>
+                                            <p><?php echo $data["food_discount"]; ?></p>
+                                        </td>
+                                        <td>
+                                            <p><?php echo $data["food_created_at"]; ?></p>
+                                        </td>
+                                        <td>
+                                            <p><?php echo $data["food_deleted_at"] ? "Silindi (" . $data["food_deleted_at"] . ")" : "Mevcut" ?></p>
+                                        </td>
+                                    </tr>
+                            <?php }
+                            endforeach ?>
+                        </tbody>
+                    </table>
                 <?php } ?>
             </div>
-        </div>
-        <?php require_once "footer.php"; ?>
-        <script src="../public/js/customer-list.js"></script>
+            <?php require_once "footer.php"; ?>
+            <script src="../public/js/searchbox.js"></script>
     </body>
 
     </html>

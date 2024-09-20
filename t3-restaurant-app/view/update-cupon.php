@@ -9,6 +9,8 @@ if (!IsUserLoggedIn()) {
 } else {
     include "../controllers/admin-controller.php";
     $restaurants = GetRestaurants();
+    $cupon_id = $_GET['c_id'];
+    $cupon = GetCuponById($cupon_id);
     require_once "header.php";
 ?>
 
@@ -19,21 +21,22 @@ if (!IsUserLoggedIn()) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../public/css/style.css">
-        <title>Add Cupon</title>
+        <title>Update Cupon <?php echo $cupon['name']; ?></title>
     </head>
 
     <body>
         <div class="container">
             <div class="login t<?php echo $_SESSION['role']; ?>">
-                <h3>Kupon Ekle</h3>
-                <form action="../scripts/add-cupon-query.php" method="post" enctype="multipart/form-data">
+                <h3><?php echo $cupon['name']; ?> Kuponunu Güncelle</h3>
+                <form action="../scripts/update-cupon-query.php" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="cupon_id" value="<?php echo $cupon_id; ?>">
                     <div class="container_obj">
                         <label for="name">Kupon Adı</label><br>
-                        <input type="text" name="name" placeholder="Kupon Adı" required />
+                        <input type="text" name="name" placeholder="Kupon Adı" value="<?php echo $cupon['name']; ?>" required />
                     </div>
                     <div class="container_obj">
                         <label for="discount">İndirim</label><br>
-                        <input type="number" min="1" max="100" name="discount" placeholder="İndirim" required />
+                        <input type="number" min="1" max="100" name="discount" placeholder="İndirim" value="<?php echo $cupon['discount']; ?>" required />
                     </div>
                     <div class="container_obj">
                         <label for="restaurant">Restoran:</label><br>

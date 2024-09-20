@@ -22,50 +22,66 @@ if (!IsUserLoggedIn()) {
     </head>
 
     <body>
-        <div class="">
-            <div>
-                <h1 class="searchbox">Kuponlar</h1>
-                <a href="add-cupon.php" class="searchbox"><button>Kupon Ekle</button></a>
+        <div class="centerDiv">
+            <div class="centerDiv">
+                <h1>Kuponlar</h1>
+                <a href="add-cupon.php" class=" cleanText"><button>Kupon Ekle</button></a>
             </div>
             <?php if (empty($cupons)) {
                 echo "<p>Herhangi bir kupon bulunamadı.</p>";
             } else { ?>
                 <div class="searchbox">
-                    <input
-                        type="search"
-                        id="searchbox"
-                        onchange="liveSearch()"
-                        placeholder="Kupon Ara" />
+                    <input type="search" id="searchbox" placeholder="Kupon Ara" />
                 </div>
-                <div class="dataDiv">
-                    <p>ID</p>
-                    <p>Restoran ID</p>
-                    <p>Ad</p>
-                    <p>İndirim</p>
-                    <p>Kayıt</p>
-                    <p>Sil</p>
-                </div>
-                <?php foreach ($cupons as $i => $cupon): ?>
-                    <div class="customerDiv">
-                        <div class="dataDiv t<?php echo $_SESSION['role']; ?>">
-                            <p><?php echo $cupon['id']; ?></p>
-                            <p><?php echo $cupon['restaurant_id'] ? $cupon['restaurant_id'] : "Genel"; ?></p>
-                            <p><?php echo $cupon['name']; ?></p>
-                            <p><?php echo $cupon['discount']; ?></p>
-                            <p><?php echo $cupon['created_at']; ?></p>
-                            <form action="../scripts/delete-cupon.php" method="post">
-                                <input type="hidden" name="cupon_id" value="<?php echo $cupon['id']; ?>" />
-                                <button style="margin-top: 1rem;" type="submit">X</button>
-                            </form>
-                        </div>
-                    </div>
-                <?php endforeach ?>
+                <table class="dataTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Restoran ID</th>
+                            <th>Ad</th>
+                            <th>İndirim</th>
+                            <th>Kayıt</th>
+                            <th>Güncelle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($cupons as $cupon): ?>
+                            <tr class="t<?php echo $_SESSION['role']; ?> dataElement dataTable">
+                                <td>
+                                    <p><?php echo $cupon['id']; ?></p>
+                                </td>
+                                <td>
+                                    <p><?php echo $cupon['restaurant_id'] ?: "Genel"; ?></p>
+                                </td>
+                                <td>
+                                    <p><?php echo $cupon['name']; ?></p>
+                                </td>
+                                <td>
+                                    <p><?php echo "%" . $cupon['discount']; ?></p>
+                                </td>
+                                <td>
+                                    <p><?php echo $cupon['created_at']; ?></p>
+                                </td>
+                                <td>
+                                    <a href="update-cupon.php?c_id=<?php echo $cupon['id']; ?>"><button>Güncelle</button></a>
+                                </td>
+                                <td>
+                                    <form action="../scripts/delete-cupon.php" method="post">
+                                        <input type="hidden" name="cupon_id" value="<?php echo $cupon['id']; ?>" />
+                                        <button type="submit">X</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
             <?php } ?>
         </div>
 
-        <a href="index.php" style="margin-top: 1.5rem;" class="searchbox"><button>Ana Sayfa</button></a>
+        <a href="index.php" style="margin-top: 1.5rem;" class="searchbox cleanText"><button>Ana Sayfa</button></a>
         <?php require_once "footer.php"; ?>
-        <script src="../public/js/customer-list.js"></script>
+        <script src="../public/js/searchbox.js"></script>
     </body>
 
     </html>

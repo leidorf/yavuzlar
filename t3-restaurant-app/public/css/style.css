@@ -3,13 +3,13 @@
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  
+
   --admin: #eb5654;
   --admin_dark: #c04745;
   --company: #eba228;
   --company_dark: #e29d26;
   --user: #ff963b;
-  --user_dark: #f1af8a;
+  --user_dark: #d59057;
 }
 
 body {
@@ -37,12 +37,6 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.company_logo,
-.food_photo {
-  height: 50px;
-  width: auto;
 }
 
 .food_div {
@@ -110,7 +104,8 @@ button:hover {
 }
 
 .dataDiv {
-  height: 4rem;
+  margin: 0 1.5rem 0 1.5rem;
+  height: 4.5rem;
   max-height: 6rem;
   position: relative;
   display: flex;
@@ -149,7 +144,7 @@ button:hover {
   padding: 0.5rem;
 }
 
-.foodDiv .food_photo,
+.imageContainer .foodPhoto,
 .medPhoto {
   height: 128px;
   width: 128px;
@@ -162,6 +157,7 @@ button:hover {
 }
 
 .discount {
+  font-weight: 600;
   position: absolute;
   bottom: -1rem;
   right: 0;
@@ -172,11 +168,48 @@ button:hover {
 
 .highlight2 {
   text-align: center;
+  font-weight: 600;
+  font-style: italic;
   min-width: 5rem;
+  max-width: 6rem;
   background-color: var(--user);
 }
 
 .description {
-  font-size: 0.75rem;
+  font-size: 0.70rem;
   color: rgb(80, 80, 80);
+}
+
+.cleanText {
+  text-decoration: none;
+}
+
+.dataDiv p,
+.dataDiv a,
+.dataDiv img,
+.dataDiv button {
+  flex: 1;
+  text-align: center;
+  margin: 0 5px;
+}
+
+.company_logo,
+.food_photo {
+  max-width: 64px;
+  height: auto;
+  object-fit: cover;
+}
+
+.dataTable{
+  text-align: center;
+  border-collapse:collapse;
+}
+
+.dataTable th, .dataTable td{
+  margin: 0 0.5rem 0 0.5rem;
+  padding: .5rem;
+}
+
+.dataTable form{
+  margin-top: 1rem;
 }

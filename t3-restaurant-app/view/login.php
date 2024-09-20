@@ -17,7 +17,7 @@ if (IsUserLoggedIn()) {
 <body>
     <div class="container">
         <div class="login t0" style="margin-top:5rem;">
-            <h3>Yavuzlar Restoran Uygulaması</h3>
+            <h2 style="font-weight:300;">Yavuzlar Restoran Uygulaması</h2>
             <div style="margin-bottom: 2.5rem;">
                 <img src="../public/images/login_logo.png" alt="Login Logo" class="login_logo">
                 <form action="../scripts/login-query.php" method="post">

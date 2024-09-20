@@ -21,13 +21,13 @@
         <?php break;
         case 1: ?>
             <a href="company.php" class="header_obj"><button>Firma</button></a>
-            <a href="food-list.php" class="header_obj"><button>Firma Yemekleri</button></a>
+            <a href="food-list.php" class="header_obj"><button>Yemekler</button></a>
             <a href="restaurant-list.php" class="header_obj"><button>Restoranlar</button></a>
         <?php break;
         case 2: ?>
             <a href="foods.php" class="header_obj"><button>Yemekler</button></a>
             <a href="orders.php" class="header_obj"><button>Siparişler</button></a>
-
+            <a href="basket.php" class="header_obj"><button>Sepet</button></a>
     <?php break;
     } ?>
     <form action="logout.php" method="post"><button class="logout_btn" type="submit">Çıkış Yap</button></form>

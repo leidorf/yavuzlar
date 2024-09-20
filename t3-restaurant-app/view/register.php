@@ -17,7 +17,7 @@ if (IsUserLoggedIn()) {
 <body>
     <div class="container">
         <div class="login t0" style="margin-top:5rem;">
-            <h3>Kayıt Ol</h3>
+            <h2 style="font-weight: 300;" >Kayıt Ol</h2>
             <img src="../public/images/login_logo.png" alt="Kayıt Logosu" class="login_logo">
             <form action="../scripts/register-query.php" method="post">
                 <div style="margin-bottom:2.5rem;">

@@ -160,3 +160,25 @@ function MakeEmployee($user_id, $company_id)
     $statement = $pdo->prepare($query);
     $statement->execute(["company_id" => $company_id, "user_id" => $user_id]);
 }
+
+function GetCuponById($cupon_id)
+{
+    global $pdo;
+    $cupon_id = htmlclean($cupon_id);
+    $query = "SELECT * FROM cupon WHERE id = :cupon_id";
+    $statement = $pdo->prepare($query);
+    $statement->execute(["cupon_id" => $cupon_id]);
+    return $statement->fetch(PDO::FETCH_ASSOC);
+}
+
+function UpdateCupon($cupon_id, $restaurant_id, $name, $discount)
+{
+    global $pdo;
+    $cupon_id = htmlclean($cupon_id);
+    $restaurant_id = htmlclean($restaurant_id);
+    $name = htmlclean($name);
+    $discount = htmlclean($discount);
+    $query = "UPDATE cupon SET restaurant_id = :restaurant_id, name = :name, discount = :discount WHERE id = :cupon_id ";
+    $statement = $pdo->prepare($query);
+    $statement->execute(["restaurant_id" => $restaurant_id, "name" => $name, "discount" => $discount, "cupon_id" => $cupon_id]);
+}
