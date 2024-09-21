@@ -37,7 +37,7 @@ if (!IsUserLoggedIn()) {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Restoran ID</th>
+                            <th>Restoran</th>
                             <th>Ad</th>
                             <th>İndirim</th>
                             <th>Kayıt</th>
@@ -52,7 +52,7 @@ if (!IsUserLoggedIn()) {
                                     <p><?php echo $cupon['id']; ?></p>
                                 </td>
                                 <td>
-                                    <p><?php echo $cupon['restaurant_id'] ?: "Genel"; ?></p>
+                                    <p><?php echo $cupon['restaurant_id'] ? GetRestaurantName($cupon['restaurant_id']) : "Genel"; ?></p>
                                 </td>
                                 <td>
                                     <p><?php echo $cupon['name']; ?></p>

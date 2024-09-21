@@ -10,6 +10,12 @@ if (!IsUserLoggedIn()) {
 include "../controllers/admin-controller.php";
 $datas = GetUsers();
 $companies = GetCompanies();
+$uniqueDatas = [];
+foreach ($datas as $data) {
+    if (!in_array($data['user_id'], array_column($uniqueDatas, 'user_id'))) {
+        $uniqueDatas[] = $data;
+    }
+}
 require_once "header.php";
 ?>
 <!DOCTYPE html>
@@ -52,14 +58,14 @@ require_once "header.php";
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($datas as $data): ?>
+                    <?php foreach ($uniqueDatas as $data): ?>
                         <tr class="dataElement dataTable t<?php echo $_SESSION['role']; ?>" is-banned="<?php echo $data['user_deleted_at'] ? 'true' : 'false'; ?>">
                             <td>
                                 <p> <?php echo $data['user_id']; ?> </p>
                             </td>
                             <td>
                                 <p>
-                                    <?php echo !is_null($data['user_company_id']) && $data['user_company_id'] ? GetCompanyById($data['user_company_id'])['name'] : "Müşteri"; ?>
+                                    <?php echo !is_null($data['user_company_id']) ? GetCompanyById($data['user_company_id'])['name'] : "Yok"; ?>
                                 </p>
                             </td>
                             <td>
@@ -75,7 +81,7 @@ require_once "header.php";
                                 <p> <?php echo $data['user_balance']; ?> </p>
                             </td>
                             <td>
-                                <p> <?php echo $data['order_status'] ? "<a href='user-orders.php?u_id=" . $data['user_id'] . "'><button>Siparişler</button></a>" : "Mevcut sipariş yok"; ?></p>
+                                <p> <?php echo !is_null($data['order_status']) ? "<a href='user-orders.php?u_id=" . $data['user_id'] . "'><button>Siparişler</button></a>" : "Mevcut sipariş yok"; ?></p>
                             </td>
                             <td>
                                 <p> <?php echo $data['user_created_at']; ?> </p>
@@ -103,9 +109,9 @@ require_once "header.php";
                                 </form>
                             </td>
                         </tr>
+                    <?php endforeach ?>
                 </tbody>
-            <?php endforeach ?>
-        <?php } ?>
+            <?php } ?>
             </table>
     </div>
     <div class="centerDiv">

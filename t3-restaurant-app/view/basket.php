@@ -4,7 +4,7 @@ include "../controllers/auth-controller.php";
 if (!IsUserLoggedIn()) {
     header("Location: login.php?message=Lütfen giriş yapınız.");
     exit();
-}else if ($_SESSION['role'] != 2) {
+} else if ($_SESSION['role'] != 2) {
     header("Location: ../view/index.php?message=403 Yetkisiz Giriş");
 }
 include "../controllers/customer-controller.php";
@@ -87,14 +87,17 @@ $totalPrice = 0;
                                     </form>
                                 </td>
                             </tr>
-                        <?php if ($data['food_discount'] > 0) {
+                            <?php if ($data['food_discount'] > 0) {
                                 $totalPrice += $data['basket_quantity'] * $data["food_price"] * (100 - $data['food_discount']) / 100;
                             } else {
                                 $totalPrice += $data['basket_quantity'] * $data['food_price'];
-                            }
-                        endforeach ?>
+                            } ?>
                     </tbody>
                 </table>
+            <?php /* if (GetCuponByRId($data['restaurant_id'])) { ?>
+                    <p class="headerText notification"><?php echo $data['restaurant_name']; ?> Restoranında %<?php echo $cupon['discount']; ?> indirim!</p>
+            <?php }
+                        */ endforeach ?>
             </div>
             <div class="centerDiv ">
                 <p>

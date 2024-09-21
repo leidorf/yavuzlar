@@ -293,3 +293,13 @@ function GetOrders($user_id)
     $statement->execute(["user_id" => $user_id]);
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function GetCuponByRId($restaurant_id)
+{
+    global $pdo;
+    $restaurant_id = htmlclean($restaurant_id);
+    $query = "SELECT * FROM cupon WHERE id = :restaurant_id";
+    $statement = $pdo->prepare($query);
+    $statement->execute(["restaurant_id" => $restaurant_id]);
+    return $statement->fetch(PDO::FETCH_ASSOC);
+}

@@ -5,6 +5,14 @@ if (!IsUserLoggedIn()) {
     header("Location: login.php?message=Lütfen giriş yapınız.");
     exit();
 }
+if ($_SESSION['role'] == 2) {
+    include "../controllers/admin-controller.php";
+    $restaurant_cupons = GetCupons();
+
+    $cupons = array_filter($restaurant_cupons, function ($cupon) {
+        return $cupon['restaurant_id'] > 0;
+    });
+}
 require_once "header.php";
 ?>
 <!DOCTYPE html>
@@ -18,6 +26,12 @@ require_once "header.php";
 </head>
 
 <body>
+    <?php if ($_SESSION['role'] == 2 && $cupons) {
+        foreach ($cupons as $cupon) {
+            $restaurantName = GetRestaurantName($cupon['restaurant_id']); ?>
+            <p class="headerText notification"><?php echo $restaurantName; ?> Restoranında %<?php echo $cupon['discount']; ?> indirim!</p>
+    <?php }
+    } ?>
     <div class="container">
         <div class="login t<?php echo $_SESSION['role']; ?>">
 

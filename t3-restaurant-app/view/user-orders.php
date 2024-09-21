@@ -4,7 +4,7 @@ include "../controllers/auth-controller.php";
 if (!IsUserLoggedIn()) {
     header("Location: login.php?message=Lütfen giriş yapınız.");
     exit();
-} else if ($_SESSION['role'] != 2) {
+} else if ($_SESSION['role'] != 0) {
     header("Location: index.php?message=403 Yetkisiz Giriş");
 }
 include "../controllers/admin-controller.php";
@@ -27,7 +27,7 @@ require_once "header.php";
     <div class="centerDiv">
         <h1>Kullanıcı Siparişleri</h1>
         <?php if (empty($datas[0]['order_items_id'])) {
-            echo "<p>Firmaya ait hiçbir sipariş bulunamadı.</p>";
+            echo "<p>Kullanıcıya ait hiçbir sipariş bulunamadı.</p>";
         } else { ?>
             <div class="searchbox">
                 <input type="search" id="searchbox" placeholder="Sipariş Ara" />
@@ -66,42 +66,21 @@ require_once "header.php";
                             <td>
                                 <p><?php echo $data["order_items_quantity"] . " x " . $data["order_items_price"] . " = " . $data["order_items_quantity"] * $data["order_items_price"]; ?></p>
                             </td>
-                            <td class="quantityContainer">
-                                <?php switch ($data["order_order_status"]) {
-                                    case 0:
-                                        echo "<p style='margin-top:1rem;'>Hazırlanıyor</p>"; ?>
-                                        <form action="../scripts/update-order-status.php" method="post">
-                                            <input type="hidden" name="o_id" value="<?php echo $data['order_id']; ?>">
-                                            <input type="hidden" name="value" value="1">
-                                            <button type="submit" class="editQuantity">→</button>
-                                        </form>
-                                    <?php
-                                        break;
-                                    case 1: ?>
-                                        <form action="../scripts/update-order-status.php" method="post">
-                                            <input type="hidden" name="o_id" value="<?php echo $data['order_id']; ?>">
-                                            <input type="hidden" name="value" value="-1">
-                                            <button type="submit" class="editQuantity">←</button>
-                                        </form><?php
-                                                echo "<p>Yola Çıktı</p>"; ?>
-                                        <form action="../scripts/update-order-status.php" method="post">
-                                            <input type="hidden" name="o_id" value="<?php echo $data['order_id']; ?>">
-                                            <input type="hidden" name="value" value="1">
-                                            <button type="submit" class="editQuantity">→</button>
-                                        </form><?php
-                                                break;
-                                            case 2: ?>
-                                        <form action="../scripts/update-order-status.php" method="post">
-                                            <input type="hidden" name="o_id" value="<?php echo $data['order_id']; ?>">
-                                            <input type="hidden" name="value" value="-1">
-                                            <button type="submit" class="editQuantity">←</button>
-                                        </form><?php
-                                                echo "<p style='margin-bottom:1rem;' >Teslim Edildi</p>";
-                                                break;
-                                            default:
-                                                echo "<p>Hata!</p>";
-                                                break;
-                                        } ?>
+                            <td>
+                                <p><?php switch ($data["order_order_status"]) {
+                                        case 0:
+                                            echo "Hazırlanıyor";
+                                            break;
+                                        case 1:
+                                            echo "Yola Çıktı";
+                                            break;
+                                        case 2:
+                                            echo "Teslim Edildi";
+                                            break;
+                                        default:
+                                            echo "Hata!";
+                                            break;
+                                    } ?> </p>
                             </td>
                         </tr>
                     <?php endforeach ?>

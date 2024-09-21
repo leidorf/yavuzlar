@@ -185,7 +185,7 @@ function UpdateCupon($cupon_id, $restaurant_id, $name, $discount)
 function GetUserOrders($user_id)
 {
     global $pdo;
-    $user_id= htmlclean($user_id);
+    $user_id = htmlclean($user_id);
     $query = "SELECT
             restaurant.id AS restaurant_id,
             restaurant.company_id AS restaurant_company_id,
@@ -208,11 +208,24 @@ function GetUserOrders($user_id)
             `order`.order_status AS order_order_status,
             users.id AS users_id,
             users.username AS users_username 
-            FROM order_items ON food.id = order_items.food_id 
+            FROM restaurant 
+        INNER JOIN food ON restaurant.id = food.restaurant_id
+        INNER JOIN order_items ON food.id = order_items.food_id 
         INNER JOIN `order` ON order_items.order_id = `order`.id 
         INNER JOIN users ON `order`.user_id = users.id
         WHERE users.id = :user_id";
     $statement = $pdo->prepare($query);
     $statement->execute(["user_id" => $user_id]);
     return $statement->fetchAll();
+}
+
+function GetRestaurantName($restaurant_id)
+{
+    global $pdo;
+    $restaurant_id = htmlclean($restaurant_id);
+    $query = "SELECT name FROM restaurant WHERE id = :restaurant_id";
+    $statement = $pdo->prepare($query);
+    $statement->execute(["restaurant_id" => $restaurant_id]);
+    $result = $statement->fetch(PDO::FETCH_ASSOC);
+    return $result['name'];
 }

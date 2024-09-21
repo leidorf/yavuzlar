@@ -61,7 +61,8 @@ button:hover {
   border: 1px solid var(--admin);
 }
 
-.b0 button, .red,
+.b0 button,
+.red,
 .t0 button {
   background-color: var(--admin);
 }
@@ -79,7 +80,8 @@ button:hover {
   border: 1px solid var(--user);
 }
 
-.b2 button, .normal,
+.b2 button,
+.normal,
 .t2 button {
   background-color: var(--user);
 }
@@ -228,13 +230,18 @@ button:hover {
   width: 35rem;
 }
 
-td .modalBtn{
-  text-decoration:underline;
+td .modalBtn {
+  text-decoration: underline;
   text-decoration-color: var(--admin);
 }
 
-.headerText{
+.headerText {
   text-align: center;
   font-weight: 600;
   font-style: italic;
+}
+
+.notification {
+  text-decoration: underline 0.125rem;
+  text-decoration-color: var(--admin);
 }
