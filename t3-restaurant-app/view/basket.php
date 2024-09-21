@@ -100,7 +100,7 @@ $totalPrice = 0;
                 <p>
                     Toplam Fiyat: <?php echo $totalPrice; ?>
                 </p>
-                <form action="confirm-basket.php" method="post">
+                <form action="../scripts/confirm-basket.php" method="post">
                     <button type="submit">Onayla</button>
                 </form>
             </div>

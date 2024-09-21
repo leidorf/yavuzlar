@@ -232,3 +232,9 @@ td .modalBtn{
   text-decoration:underline;
   text-decoration-color: var(--admin);
 }
+
+.headerText{
+  text-align: center;
+  font-weight: 600;
+  font-style: italic;
+}

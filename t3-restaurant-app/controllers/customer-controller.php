@@ -192,14 +192,104 @@ function AddComment($restaurant_id, $title, $description, $score)
 
     $query = "INSERT INTO comments(user_id, restaurant_id, username, title, description, score, created_at, updated_at) VALUES(:user_id, :restaurant_id, :username, :title, :description, :score, :created_at, :updated_at)";
     $statement = $pdo->prepare($query);
-    $statement->execute(["user_id"=>$user_id, "restaurant_id"=>$restaurant_id, "username"=>$username, "title"=>$title, "description"=>$description, "score"=>$score, "created_at"=>$created_at, "updated_at"=>$created_at]);
+    $statement->execute(["user_id" => $user_id, "restaurant_id" => $restaurant_id, "username" => $username, "title" => $title, "description" => $description, "score" => $score, "created_at" => $created_at, "updated_at" => $created_at]);
 }
 
-function GetAvgScore($restaurant_id){
+function GetAvgScore($restaurant_id)
+{
     global $pdo;
     $restaurant_id = htmlclean($restaurant_id);
     $query = "SELECT AVG(score) FROM comments WHERE restaurant_id = :restaurant_id";
     $statement = $pdo->prepare($query);
-    $statement->execute(["restaurant_id"=>$restaurant_id]);
+    $statement->execute(["restaurant_id" => $restaurant_id]);
     return $statement->fetchColumn();
+}
+
+function DeleteComment($comment_id)
+{
+    global $pdo;
+    $comment_id = htmlclean($comment_id);
+    $updated_at = (new DateTime())->format('Y-m-d H:i:s');
+
+    $query = "UPDATE comments SET title=:title, description=:description, score=:score, updated_at =:updated_at WHERE id = :comment_id";
+    $statement = $pdo->prepare($query);
+    $statement->execute(["title" => "[deleted]", "description" => "[deleted]", "score" => null, "updated_at" => $updated_at, "comment_id" => $comment_id]);
+}
+
+function GetBasketDatas($user_id)
+{
+    global $pdo;
+    $user_id = htmlclean($user_id);
+    $query = "SELECT
+    food.id AS food_id,
+    food.price AS food_price,
+    food.discount AS food_discount,
+    basket.id AS basket_id,
+    basket.user_id AS basket_user_id,
+    basket.food_id AS basket_food_id,
+    basket.note AS basket_note,
+    basket.quantity AS basket_quantity,
+    basket.created_at AS basket_created_at FROM food INNER JOIN basket ON food.id = basket.food_id WHERE basket.user_id = :user_id";
+    $statement = $pdo->prepare($query);
+    $statement->execute(["user_id" => $user_id]);
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function UpdateBalance($user_id, $total_price)
+{
+    global $pdo;
+    $user_id = htmlclean($user_id);
+    $total_price = htmlclean($total_price);
+    $query = "UPDATE users SET balance = balance + :total_price WHERE id= :user_id";
+    $statement = $pdo->prepare($query);
+    $statement->execute(["total_price" => -$total_price, "user_id" => $user_id]);
+    $_SESSION['balance'] -= $total_price;
+}
+
+function AddOrderItems($food_id, $order_id, $quantity, $price)
+{
+    global $pdo;
+    $food_id = htmlclean($food_id);
+    $order_id = htmlclean($order_id);
+    $quantity = htmlclean($quantity);
+    $price = htmlclean($price);
+    $query = "INSERT INTO order_items(food_id, order_id, quantity, price) VALUES (:food_id, :order_id, :quantity, :price)";
+    $statement = $pdo->prepare($query);
+    $statement->execute(["food_id" => $food_id, "order_id" => $order_id, "quantity" => $quantity, "price" => $price]);
+}
+
+function ConfirmBasket($user_id)
+{
+    global $pdo;
+    $user_id = htmlclean($user_id);
+    $datas = GetBasketDatas($user_id);
+    $created_at = (new DateTime())->format('Y-m-d H:i:s');
+    $total_price = 0;
+    foreach ($datas as $data) {
+        $data['food_price'] = is_null(value: $data['food_discount'])?: $data['food_price'] * (100 - $data['food_discount']) / 100;
+        $total_price += $data['food_price'] * $data['basket_quantity'];
+    }
+    $query = "INSERT INTO `order` (user_id, total_price, created_at) VALUES (:user_id, :total_price, :created_at)";
+    $statement = $pdo->prepare($query);
+    $statement->execute(["user_id" => $user_id, "total_price" => $total_price, "created_at" => $created_at]);
+
+    $order_id = $pdo->lastInsertId();
+
+    foreach ($datas as $data) {
+        $data['food_price'] = is_null(value: $data['food_discount'])?: $data['food_price'] * (100 - $data['food_discount']) / 100;
+        DeleteFromBasket($data['basket_id']);
+        AddOrderItems($data['food_id'], $order_id, $data['basket_quantity'], $data['food_price']);
+    }
+
+    UpdateBalance($user_id, $total_price);
+}
+
+function GetOrders($user_id)
+{
+    global $pdo;
+    $user_id = htmlclean($user_id);
+    $query = "SELECT * FROM `order` WHERE user_id =:user_id";
+    $statement = $pdo->prepare($query);
+    $statement->execute(["user_id" => $user_id]);
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
 }

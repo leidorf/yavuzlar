@@ -182,3 +182,37 @@ function UpdateCupon($cupon_id, $restaurant_id, $name, $discount)
     $statement = $pdo->prepare($query);
     $statement->execute(["restaurant_id" => $restaurant_id, "name" => $name, "discount" => $discount, "cupon_id" => $cupon_id]);
 }
+function GetUserOrders($user_id)
+{
+    global $pdo;
+    $user_id= htmlclean($user_id);
+    $query = "SELECT
+            restaurant.id AS restaurant_id,
+            restaurant.company_id AS restaurant_company_id,
+            food.id AS food_id,
+            food.restaurant_id AS food_restaurant_id,
+            food.name AS food_name,
+            food.description AS food_description,
+            food.image_path AS food_image_path,
+            food.price AS food_price,
+            food.discount AS food_discount,
+            food.created_at AS food_created_at,
+            food.deleted_at AS food_deleted_at,
+            order_items.id AS order_items_id,
+            order_items.food_id AS order_items_food_id,
+            order_items.order_id AS order_items_order_id,
+            order_items.quantity AS order_items_quantity,
+            order_items.price AS order_items_price,
+            `order`.id AS order_id,
+            `order`.user_id AS order_user_id,
+            `order`.order_status AS order_order_status,
+            users.id AS users_id,
+            users.username AS users_username 
+            FROM order_items ON food.id = order_items.food_id 
+        INNER JOIN `order` ON order_items.order_id = `order`.id 
+        INNER JOIN users ON `order`.user_id = users.id
+        WHERE users.id = :user_id";
+    $statement = $pdo->prepare($query);
+    $statement->execute(["user_id" => $user_id]);
+    return $statement->fetchAll();
+}

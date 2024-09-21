@@ -16,17 +16,21 @@ require_once "header.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../public/css/style.css">
-    <title>Orders</title>
+    <title>Old Orders</title>
 </head>
 
 <body>
     <div class="centerDiv">
-        <h1>Siparişleriniz</h1>
-        <a href="old-orders.php" class="container_obj b<?php echo $_SESSION['role']; ?>"><button>Eski Siparişler</button></a>
+        <h1>Eski Siparişleriniz</h1>
+        <a href="orders.php" class="container_obj b<?php echo $_SESSION['role']; ?>"><button>Siparişler</button></a>
         <?php
-        if (empty($orders)) {
-            echo "<p>Mevcutta herhangi bir sipariş bulunamadı.</p>";
-        } else { ?>
+        $completed_orders = array_filter($orders, function ($order) {
+            return $order['order_status'] == 2;
+        });
+        if (empty($completed_orders)) {
+            echo "<p>Geçmişe dair herhangi bir eski sipariş bulunamadı.</p>";
+        } else {
+        ?>
             <div class="searchbox">
                 <input type="search" id="searchbox" placeholder="Sipariş Ara" />
             </div>
@@ -39,7 +43,7 @@ require_once "header.php";
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($orders as $order): if ($order['order_status'] == 0 || $order['order_status'] == 1) { ?>
+                    <?php foreach ($orders as $order): if ($order['order_status'] == 2) { ?>
                             <tr class="dataElement t<?php echo $_SESSION['role']; ?>">
                                 <td>
                                     <p><?php switch ($order["order_status"]) {
@@ -66,7 +70,7 @@ require_once "header.php";
                                 </td>
                             </tr>
                     <?php }
-                    endforeach  ?>
+                    endforeach ?>
                 </tbody>
             </table>
         <?php } ?>

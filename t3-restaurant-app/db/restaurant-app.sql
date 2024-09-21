@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Generation Time: Sep 21, 2024 at 01:37 AM
+-- Generation Time: Sep 21, 2024 at 01:27 PM
 -- Server version: 9.0.1
 -- PHP Version: 8.2.8
 
@@ -57,10 +57,19 @@ CREATE TABLE `comments` (
   `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `score` int NOT NULL,
+  `score` int DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `user_id`, `restaurant_id`, `username`, `title`, `description`, `score`, `created_at`, `updated_at`) VALUES
+(1, 9, 2, 'user', 'cok ii', 'ellerinize saglik', 6, '2024-09-21 01:55:21', '2024-09-21 01:55:21'),
+(2, 9, 2, 'user', 'eh', 'fena degil', 3, '2024-09-21 02:22:41', '2024-09-21 02:22:41'),
+(3, 12, 2, 'user1', 'soguk', 'yimek soguk geldi :((', 1, '2024-09-21 13:16:03', '2024-09-21 13:16:03');
 
 -- --------------------------------------------------------
 
@@ -210,7 +219,8 @@ INSERT INTO `users` (`id`, `company_id`, `role`, `name`, `surname`, `username`, 
 (0, NULL, 0, 'admin', 'admin', 'admin', '$argon2id$v=19$m=65536,t=4,p=1$S0Q5MFVIc3RiMzJHb0NoeQ$U74dYhrrSF9Cqvg71HH5XEnEM3PY9aL6dHU2NkoKI58', 5000, '2024-09-15 17:18:48', NULL),
 (9, NULL, 2, 'user', 'user', 'user', '$argon2id$v=19$m=65536,t=4,p=1$UGZuS2FWWC91OHlzci9BLg$lLFPlb3OXZGHn/y/4UjWjo4AymdMG6OIRr++P7+lR78', 5056, '2024-09-15 17:19:30', NULL),
 (10, NULL, 2, 'banlı', 'kullanıcı', 'banlı', '$argon2id$v=19$m=65536,t=4,p=1$RFF1bVBNblZZSi5SRTU0eQ$/kWhF9svqdZ2np8u7A844TdlQfZBdLrrwSSurFFAvAE', 5000, '2024-09-15 21:00:42', '2024-09-15 22:02:34'),
-(11, 3, 1, 'firma', 'firma', 'firma', '$argon2id$v=19$m=65536,t=4,p=1$QzRncTNvcDFYWVdSdEEvSA$MuceoqxSAPArTBdJICj5I644u19SxDIPB2Aq9MeDoVw', 5000, '2024-09-18 13:01:42', NULL);
+(11, 3, 1, 'firma', 'firma', 'firma', '$argon2id$v=19$m=65536,t=4,p=1$QzRncTNvcDFYWVdSdEEvSA$MuceoqxSAPArTBdJICj5I644u19SxDIPB2Aq9MeDoVw', 5000, '2024-09-18 13:01:42', NULL),
+(12, NULL, 2, 'user1', 'user1', 'user1', '$argon2id$v=19$m=65536,t=4,p=1$c05UYWU3UkNHQnRVVEdObw$1zOf/YOLA7MUfiHc1zC7WptXC4xqmroSrRxZy11SQCE', 5000, '2024-09-21 13:15:35', NULL);
 
 --
 -- Indexes for dumped tables
@@ -295,7 +305,7 @@ ALTER TABLE `basket`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `company`
@@ -337,7 +347,7 @@ ALTER TABLE `restaurant`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables

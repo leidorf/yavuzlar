@@ -21,8 +21,9 @@
         <?php break;
         case 1: ?>
             <a href="company.php" class="header_obj"><button>Firma</button></a>
-            <a href="food-list.php" class="header_obj"><button>Yemekler</button></a>
             <a href="restaurant-list.php" class="header_obj"><button>Restoranlar</button></a>
+            <a href="food-list.php" class="header_obj"><button>Yemekler</button></a>
+            <a href="customer-orders.php" class="header_obj"><button>Müşteri Siparişleri</button></a>
         <?php break;
         case 2: ?>
             <a href="foods.php" class="header_obj"><button>Yemekler</button></a>

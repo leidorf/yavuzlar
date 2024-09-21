@@ -58,7 +58,9 @@ require_once "header.php";
                                 <p> <?php echo $data['user_id']; ?> </p>
                             </td>
                             <td>
-                                <p> <?php echo $data['user_company_id'] ? $data['company_name'] : "Müşteri"; ?> </p>
+                                <p>
+                                    <?php echo !is_null($data['user_company_id']) && $data['user_company_id'] ? GetCompanyById($data['user_company_id'])['name'] : "Müşteri"; ?>
+                                </p>
                             </td>
                             <td>
                                 <p> <?php echo $data['user_name']; ?> </p>
@@ -73,7 +75,7 @@ require_once "header.php";
                                 <p> <?php echo $data['user_balance']; ?> </p>
                             </td>
                             <td>
-                                <p> <?php echo $data['order_status'] ? $data['order_status'] : "Mevcut sipariş yok"; ?></p>
+                                <p> <?php echo $data['order_status'] ? "<a href='user-orders.php?u_id=" . $data['user_id'] . "'><button>Siparişler</button></a>" : "Mevcut sipariş yok"; ?></p>
                             </td>
                             <td>
                                 <p> <?php echo $data['user_created_at']; ?> </p>

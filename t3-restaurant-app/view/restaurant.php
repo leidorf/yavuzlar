@@ -62,7 +62,7 @@ require_once "header.php";
                                     <p><?php echo $data["comments_description"]; ?></p>
                                 </td>
                                 <td>
-                                    <p><?php echo $data["comments_score"]; ?> ⭐</p>
+                                    <p><?php echo $data["comments_score"] ? $data["comments_score"] . " ⭐" : "[deleted]"; ?></p>
                                 </td>
                                 <td>
                                     <p><?php echo $data["comments_created_at"]; ?></p>
@@ -70,10 +70,10 @@ require_once "header.php";
                                 <td>
                                     <p><?php echo $data["comments_updated_at"]; ?></p>
                                 </td>
-                                <?php if ($data['comments_user_id'] == $_SESSION['user_id']): ?>
+                                <?php if ($data['comments_user_id'] == $_SESSION['user_id'] && $data["comments_title"]!=="[deleted]" && $data["comments_description"]!=="[deleted]"): ?>
                                     <td>
                                         <form action="../scripts/delete-comment.php" method="post">
-                                            <input type="hidden" name="c_id">
+                                            <input type="hidden" name="c_id" value="<?php echo $data['comments_id']; ?>">
                                             <button type="submit">Sil</button>
                                         </form>
                                     </td>
