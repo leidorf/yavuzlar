@@ -7,15 +7,14 @@ if (!IsUserLoggedIn()) {
 } else if ($_SESSION['role'] != 2) {
     header("Location: ../view/index.php?message=403 Yetkisiz Giriş");
 }
-if (isset($_POST['food_id']) && isset($_POST['note'])) {
+if (isset($_POST['basket_id']) && isset($_POST['value'])) {
     include "../controllers/customer-controller.php";
-    $food_id = $_POST['food_id'];
-    $user_id = $_SESSION['user_id'];
-    $note = $_POST['note'];
-    AddtoBasket($user_id, $food_id, $note);
-    header("Location: ../view/foods.php");
+    $basket_id = $_POST['basket_id'];
+    $value = $_POST['value'];
+    EditQuantity($basket_id, $value);
+    header("Location: ../view/basket.php");
     exit();
 } else {
-    header("Location: ../view/foods.php?message=Eksik veya hatali bilgi girdiniz.");
+    header("Location: ../view/basket.php?message=Eksik veya hatali bilgi girdiniz.");
     exit();
 }

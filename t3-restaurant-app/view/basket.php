@@ -4,6 +4,8 @@ include "../controllers/auth-controller.php";
 if (!IsUserLoggedIn()) {
     header("Location: login.php?message=Lütfen giriş yapınız.");
     exit();
+}else if ($_SESSION['role'] != 2) {
+    header("Location: ../view/index.php?message=403 Yetkisiz Giriş");
 }
 include "../controllers/customer-controller.php";
 $datas = GetBasket($_SESSION['user_id']);
@@ -22,7 +24,7 @@ $totalPrice = 0;
 
 <body>
     <div>
-        <h1 class="searchbox">Yemekler</h1>
+        <h1 class="searchbox">Sepet</h1>
         <?php if (empty($datas)) {
             echo "<p class='searchbox'>Sepetiniz boş.</p>";
         } else { ?>
@@ -63,31 +65,44 @@ $totalPrice = 0;
                                     <p><?php echo $data['food_discount'] > 0 ? "%" . $data["food_discount"] . "!" : ""; ?></p>
                                 </td>
                                 <td>
-                                    <p style="text-wrap:nowrap;" class="description"><?php echo $data["basket_note"]; ?></p>
+                                    <p style="text-wrap:nowrap;" class="modalBtn description" data_id="<?php echo $data['basket_id']; ?>"><?php echo $data["basket_note"]; ?></p>
                                 </td>
-                                <td>
+                                <td class="quantityContainer">
+                                    <form action="../scripts/edit-quantity.php" method="post">
+                                        <input type="hidden" name="basket_id" value="<?php echo $data['basket_id']; ?>">
+                                        <input type="hidden" name="value" value="-1">
+                                        <button type="submit" class="editQuantity">-</button>
+                                    </form>
                                     <p><?php echo $data["basket_quantity"]; ?></p>
+                                    <form action="../scripts/edit-quantity.php" method="post">
+                                        <input type="hidden" name="basket_id" value="<?php echo $data['basket_id']; ?>">
+                                        <input type="hidden" name="value" value="1">
+                                        <button type="submit" class="editQuantity">+</button>
+                                    </form>
                                 </td>
                                 <td>
                                     <form action="../scripts/delete-basket-item.php" method="post">
                                         <input type="hidden" name="basket_id" value="<?php echo $data['basket_id']; ?>">
-                                        <button type="submit">X</button>
+                                        <button type="submit" style="background-color: var(--admin);">X</button>
                                     </form>
                                 </td>
                             </tr>
                         <?php if ($data['food_discount'] > 0) {
-                                $totalPrice += $data["food_price"] * (100 - $data['food_discount']) / 100;
+                                $totalPrice += $data['basket_quantity'] * $data["food_price"] * (100 - $data['food_discount']) / 100;
                             } else {
-                                $totalPrice += $data['food_price'];
+                                $totalPrice += $data['basket_quantity'] * $data['food_price'];
                             }
                         endforeach ?>
                     </tbody>
                 </table>
             </div>
-            <div class="centerDiv">
+            <div class="centerDiv ">
                 <p>
                     Toplam Fiyat: <?php echo $totalPrice; ?>
                 </p>
+                <form action="confirm-basket.php" method="post">
+                    <button type="submit">Onayla</button>
+                </form>
             </div>
     </div>
 <?php } ?>
@@ -95,8 +110,20 @@ $totalPrice = 0;
 <div class="centerDiv">
     <a href="index.php" class="b<?php echo $_SESSION['role']; ?>"><button>Ana Sayfa</button></a>
 </div>
+<div id="modal" class="modal">
+    <div class="modal-content centerDiv">
+        <h3>Notu Güncelle</h3>
+        <form action="../scripts/edit-note.php" method="post" class="centerDiv">
+            <input hidden id="data_id" name="basket_id" value="">
+            <input name="note" class="container_obj" type="text" placeholder="Notu güncelleyin">
+            <button type="submit" class="normal container_obj">Düzenle</button>
+        </form>
+        <button class="close red">İptal</button>
+    </div>
+</div>
 <?php require_once "footer.php"; ?>
-<script src="../public/js/searchbox.js"></script>
 </body>
+<script src="../public/js/searchbox.js"></script>
+<script src="../public/js/modal.js"></script>
 
 </html>
