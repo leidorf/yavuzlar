@@ -19,15 +19,18 @@ require_once "header.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../public/css/style.css">
-    <title>Customer Orders</title>
+    <title>Old Orders of Customers</title>
 </head>
 
 <body>
     <div class="centerDiv">
-        <h1>Müşteri Siparişleri</h1>
-        <a href="old-customer-orders.php" class="container_obj b<?php echo $_SESSION['role']; ?>"><button>Müşterilerin Eski Siparişleri</button></a>
-        <?php if (empty($datas[0]['order_items_id'])) {
-            echo "<p>Herhangi bir sipariş bulunamadı.</p>";
+        <h1>Müşterilerin Eski Siparişleri</h1>
+        <a href="customer-orders.php" class="container_obj b<?php echo $_SESSION['role']; ?>"><button>Müşteri Siparişleri</button></a>
+        <?php $completed_orders = array_filter($datas, function ($data) {
+            return $data['order_order_status'] == 2;
+        });
+        if (empty($completed_orders)) {
+            echo "<p>Geçmişe dair herhangi bir eski sipariş bulunamadı.</p>";
         } else { ?>
             <div class="searchbox">
                 <input type="search" id="searchbox" placeholder="Sipariş Ara" />
@@ -46,7 +49,7 @@ require_once "header.php";
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($datas as $data): if ($data['order_order_status'] == 1 || $data['order_order_status'] == 0) { ?>
+                    <?php foreach ($datas as $data): if ($data['order_order_status'] == 2) { ?>
                             <tr class="t<?php echo $_SESSION['role']; ?> dataElement dataTable">
                                 <td>
                                     <p><?php echo $data["order_id"]; ?></p>

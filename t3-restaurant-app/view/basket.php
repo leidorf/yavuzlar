@@ -8,9 +8,12 @@ if (!IsUserLoggedIn()) {
     header("Location: ../view/index.php?message=403 Yetkisiz Giriş");
 }
 include "../controllers/customer-controller.php";
+include "../controllers/admin-controller.php";
 $datas = GetBasket($_SESSION['user_id']);
 require_once "header.php";
-$totalPrice = 0;
+$total_price = 0;
+$applied_discount = 0;
+$cupon = isset($_SESSION['cupon']) ? $_SESSION['cupon'] : null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,19 +39,20 @@ $totalPrice = 0;
                 <table class="dataTable">
                     <thead>
                         <tr>
-                            <th>Fotoğraf</th>
+                            <th></th>
                             <th>Yemek</th>
-                            <th>Açıklama</th>
+                            <th></th>
                             <th>Fiyat</th>
                             <th>İndirim</th>
+                            <th>Restoran</th>
                             <th>Sipariş Notu</th>
-                            <th>Sayı</th>
+                            <th>Adet</th>
                             <th>Sil</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($datas as $data): ?>
-                            <tr class="dataElement t<?php echo $_SESSION['role']; ?>">
+                            <tr class="dataElement dataTable t<?php echo $_SESSION['role']; ?>">
                                 <td>
                                     <img class="food_photo" src="<?php echo $data["food_image_path"]; ?>" alt="Yemek Fotoğrafı">
                                 </td>
@@ -59,10 +63,24 @@ $totalPrice = 0;
                                     <p style="text-wrap:nowrap;" class="description"><?php echo $data["food_description"]; ?></p>
                                 </td>
                                 <td>
-                                    <p <?php echo $data['food_discount'] ? "class='highlight" . $_SESSION['role'] . "'>" . $data["food_price"] * (100 - $data['food_discount']) / 100 : ">" . $data['food_price']; ?></p>
+                                    <p class="<?php echo $data['food_discount'] ? "highlight" . $_SESSION['role'] : ""; ?>">
+                                        <?php
+                                        $price = $data['food_discount'] ? $data['food_price'] * (100 - $data['food_discount']) / 100 : $data['food_price'];
+                                        if ($cupon) {
+                                            if ($cupon['restaurant_id'] === null || $cupon['restaurant_id'] == $data['food_restaurant_id']) {
+                                                $discount_amount = $price * ($cupon['discount'] / 100);
+                                                $price -= $discount_amount;
+                                                $applied_discount += $discount_amount * $data['basket_quantity'];
+                                            }
+                                        }
+                                        echo $price; ?>
+                                    </p>
                                 </td>
                                 <td>
                                     <p><?php echo $data['food_discount'] > 0 ? "%" . $data["food_discount"] . "!" : ""; ?></p>
+                                </td>
+                                <td>
+                                    <p><?php echo GetRestaurantName($data['food_restaurant_id']); ?></p>
                                 </td>
                                 <td>
                                     <p style="text-wrap:nowrap;" class="modalBtn description" data_id="<?php echo $data['basket_id']; ?>"><?php echo $data["basket_note"]; ?></p>
@@ -87,21 +105,20 @@ $totalPrice = 0;
                                     </form>
                                 </td>
                             </tr>
-                            <?php if ($data['food_discount'] > 0) {
-                                $totalPrice += $data['basket_quantity'] * $data["food_price"] * (100 - $data['food_discount']) / 100;
-                            } else {
-                                $totalPrice += $data['basket_quantity'] * $data['food_price'];
-                            } ?>
+                        <?php
+                            $total_price += $price * $data['basket_quantity'];
+                        endforeach ?>
                     </tbody>
                 </table>
-            <?php /* if (GetCuponByRId($data['restaurant_id'])) { ?>
-                    <p class="headerText notification"><?php echo $data['restaurant_name']; ?> Restoranında %<?php echo $cupon['discount']; ?> indirim!</p>
-            <?php }
-                        */ endforeach ?>
             </div>
             <div class="centerDiv ">
+                <form action="../scripts/apply-cupon.php" method="post">
+                    <label for="c_name">Kupon Giriniz:</label>
+                    <input type="text" name="c_name">
+                    <button type="submit">Uygula</button>
+                </form>
                 <p>
-                    Toplam Fiyat: <?php echo $totalPrice; ?>
+                    Toplam Fiyat: <?php echo $total_price; ?>
                 </p>
                 <form action="../scripts/confirm-basket.php" method="post">
                     <button type="submit">Onayla</button>

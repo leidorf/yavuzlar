@@ -29,7 +29,7 @@ require_once "header.php";
     <?php if ($_SESSION['role'] == 2 && $cupons) {
         foreach ($cupons as $cupon) {
             $restaurantName = GetRestaurantName($cupon['restaurant_id']); ?>
-            <p class="headerText notification"><?php echo $restaurantName; ?> Restoranında %<?php echo $cupon['discount']; ?> indirim!</p>
+            <p title="<?php echo $cupon['name']; ?>" class="headerText notification"><?php echo $restaurantName; ?> restoranında <?php echo $cupon['name']; ?> koduyla %<?php echo $cupon['discount']; ?> indirim kuponu!</p>
     <?php }
     } ?>
     <div class="container">

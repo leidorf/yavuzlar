@@ -9,6 +9,7 @@ if (!IsUserLoggedIn()) {
 }
 include "../controllers/customer-controller.php";
 $user_id = $_SESSION['user_id'];
-ConfirmBasket($user_id);
+$cupon = $_SESSION['cupon'];
+ConfirmBasket($user_id,$cupon);
 header("Location: ../view/orders.php");
 exit();
