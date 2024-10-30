@@ -1,23 +1,28 @@
 package main
 
 import (
+	"database/sql"
+	"fmt"
 	"os"
-    "database/sql"
-    "fmt"
-    _ "github.com/mattn/go-sqlite3"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 type User struct {
-	id int
+	id       int
 	username string
 	password string
-	role int
+	role     int
 }
 
+var decision int
+
 func main() {
+	init_db()
 	welcome_message()
 }
 
+// db features
 func connect_db() (*sql.DB, error) {
 	db, err := sql.Open("sqlite3", "./login-system.db")
 	if err != nil {
@@ -32,12 +37,47 @@ func connect_db() (*sql.DB, error) {
 	return db, nil
 }
 
+func init_db() {
+	db, err := connect_db()
+	if err != nil {
+		fmt.Println("Error connecting to the database:", err)
+		return
+	}
+	defer db.Close()
+
+	query := `
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT NOT NULL UNIQUE,
+        password TEXT NOT NULL,
+        role INTEGER NOT NULL
+    );`
+	_, err = db.Exec(query)
+	if err != nil {
+		fmt.Println("Error creating table:", err)
+		return
+	}
+	fmt.Println("Database initialized successfully.")
+}
+
+func validate_credentials(db *sql.DB, username, password string, role int) (bool, error) {
+	var user User
+	err := db.QueryRow("SELECT id, username, password, role FROM users WHERE username = ? AND password = ? AND role = ?", username, password, role).Scan(&user.id, &user.username, &user.password, &user.role)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return false, nil
+		}
+		return false, err
+	}
+	return true, nil
+}
+
 func add_customer_db(db *sql.DB, username, password string, role int) error {
 	_, err := db.Exec("INSERT INTO users (username, password, role) VALUES (?, ?, ?)", username, password, role)
 	return err
 }
 
-func query_user(db *sql.DB) ([]User, error){
+func query_user(db *sql.DB) ([]User, error) {
 	rows, err := db.Query("SELECT * FROM users")
 	if err != nil {
 		return nil, err
@@ -45,7 +85,7 @@ func query_user(db *sql.DB) ([]User, error){
 	defer rows.Close()
 
 	var users []User
-	for rows.Next(){
+	for rows.Next() {
 		var user User
 		if err := rows.Scan(&user.id, &user.username, &user.password, &user.role); err != nil {
 			return nil, err
@@ -60,13 +100,23 @@ func update_user(db *sql.DB, id int, new_username, new_password string, new_role
 	return err
 }
 
-func delete_user(db *sql.DB, id int) error {
-	_, err := db.Exec("DELETE FROM users WHERE id = ?", id)
+func delete_user(db *sql.DB, username string) error {
+	_, err := db.Exec("DELETE FROM users WHERE username = ?", username)
 	return err
 }
 
+// file features
+func check_log() bool {
+    filename := "log.txt"
+    _, err := os.Stat(filename)
+    return err == nil || !os.IsNotExist(err)
+}
+
 func welcome_message() {
-	var decision int
+	if !check_log() {
+        fmt.Println("Log dosyası bulunamadı, sisteme giriş engellendi.")
+        return
+    }
 	fmt.Println("Yavuzlar CLI Login System'e hoş geldiniz.")
 	fmt.Println("Giriş:")
 	fmt.Println("[0] Admin")
@@ -76,9 +126,9 @@ func welcome_message() {
 }
 
 func login_decision(input int) {
-	decision:=input
+	decision = input
 	fmt.Println("----------------------")
-	switch decision{
+	switch decision {
 	case 0:
 		fmt.Println("Admin girişi")
 		login(decision)
@@ -92,20 +142,38 @@ func login_decision(input int) {
 	}
 }
 
-func login(input int){
-	decision:=input
-	var username string
-	var password string
+func login(input int) {
+	decision = input
+	db, err := connect_db()
+	if err != nil {
+		fmt.Println("Database connection error:", err)
+		return
+	}
+	defer db.Close()
+
+	var username, password string
 	fmt.Println("Kullanıcı adı:")
 	fmt.Scanln(&username)
 	fmt.Println("Şifre:")
 	fmt.Scanln(&password)
 
-	// buraya kullanici bilgi kontrolu gelecek 
-	switch decision{
+	valid, err := validate_credentials(db, username, password, decision)
+	if err != nil {
+		fmt.Println("Error validating credentials:", err)
+		return
+	}
+
+	if !valid {
+		fmt.Println("Geçersiz kullanıcı adı veya şifre")
+		return
+	}
+
+	switch decision {
 	case 0:
+		fmt.Println("Hoşgeldiniz!")
 		admin_menu()
 	case 1:
+		fmt.Println("Hoşgeldiniz!")
 		customer_menu()
 	default:
 		fmt.Println("Geçersiz değer girdiniz.")
@@ -113,8 +181,7 @@ func login(input int){
 }
 
 // admin features
-func admin_menu(){
-	var decision int
+func admin_menu() {
 	fmt.Println("----------------------")
 	fmt.Println("İşlemler:")
 	fmt.Println("[0] Müşteri ekleme")
@@ -139,10 +206,15 @@ func admin_menu(){
 	}
 }
 
-func add_customer(){
-	db, error := connect_db()
-	var username string
-	var password string
+func add_customer() {
+	db, err := connect_db()
+	if err != nil {
+		fmt.Println("Database connection error:", err)
+		return
+	}
+	defer db.Close()
+
+	var username, password string
 	var role int
 	fmt.Println("Müşteri ekle")
 	fmt.Println("Müşteri bilgileri:")
@@ -150,30 +222,53 @@ func add_customer(){
 	fmt.Scanln(&username)
 	fmt.Println("Şifre:")
 	fmt.Scanln(&password)
-	fmt.Println("Rol:")
+	fmt.Println("Rol ([0] Admin, [1] Müşteri):")
 	fmt.Scanln(&role)
-	add_customer_db(db, username,password,role)
-	if error != nil{
-		fmt.Printf("%s",error)
+
+	err = add_customer_db(db, username, password, role)
+	if err != nil {
+		fmt.Printf("Error adding customer: %s\n", err)
+		return
 	}
-
+	fmt.Println("Müşteri başarıyla eklendi.")
+	admin_menu()
 }
 
-func delete_customer(){
-fmt.Println("Müşteri sil")
+func delete_customer() {
+	db, err := connect_db()
+	if err != nil {
+		fmt.Println("Database connection error:", err)
+		return
+	}
+	defer db.Close()
+
+	var username string
+	fmt.Println("----------------------")
+	fmt.Println("Müşteri sil")
+	fmt.Println("Silmek istediğiniz müşterinin kullanıcı adı:")
+	fmt.Scanln(&username)
+
+	err = delete_user(db, username)
+	if err != nil {
+		fmt.Printf("Error deleting customer: %s\n", err)
+		return
+	}
+	fmt.Println("Müşteri başarıyla silindi.")
+	admin_menu()
 }
 
-func list_logs(){
-fmt.Println("Logları listele")
+func list_logs() {
+	fmt.Println("Logları listele")
 }
 
-//customer features
-func customer_menu(){
-	var decision int
+// customer features
+func customer_menu() {
+	fmt.Println("----------------------")
 	fmt.Println("Lütfen bir işlem seçiniz:")
 	fmt.Println("[0] Profili görüntüle")
 	fmt.Println("[9] Çıkış")
 	fmt.Scanln(&decision)
+	fmt.Println("----------------------")
 
 	switch decision {
 	case 0:
@@ -187,8 +282,7 @@ func customer_menu(){
 	}
 }
 
-func view_profile(){
-	var decision int
+func view_profile() {
 	fmt.Println("----------------------")
 	fmt.Println("Profil")
 	fmt.Println("Kullanıcı adı: ")
@@ -210,10 +304,10 @@ func view_profile(){
 	}
 }
 
-func change_password(){
+func change_password() {
 	fmt.Println("Şifre değiştir")
 }
 
-func exit(){
-os.Exit(0)
+func exit() {
+	os.Exit(0)
 }
